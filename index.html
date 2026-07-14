@@ -12,47 +12,134 @@
   </head>
   <body>
     <main class="orchestra-site">
-      <header class="site-header">
-        <div class="brand-block">
+      <header class="site-header reveal" data-reveal>
+        <a class="brand-block" href="#top">
           <p class="brand-sub">Rikkyo University Symphony Orchestra</p>
           <h1>立教大学交響楽団</h1>
-        </div>
+        </a>
         <nav class="global-nav" aria-label="グローバルナビゲーション">
           <a href="#about">楽団紹介</a>
           <a href="#concerts">演奏会情報</a>
+          <a href="#gallery">ギャラリー</a>
           <a href="#join">新入生の方へ</a>
           <a href="#news">新着情報</a>
           <a href="#contact">お問い合わせ</a>
         </nav>
       </header>
 
-      <section class="hero" aria-label="メインビジュアル">
-        <div class="hero-copy">
-          <p class="eyebrow">Music, Tradition, Community</p>
-          <h2>音楽でつながる、<span>立教のオーケストラ。</span></h2>
-          <p class="lead">
-            立教大学交響楽団は、学生主体で演奏活動を行うオーケストラです。
-            定期演奏会や学内外での演奏を通して、深く豊かな音楽づくりを目指しています。
-          </p>
-          <div class="hero-actions">
-            <a class="primary-link" href="#concerts">演奏会を見る</a>
-            <a class="secondary-link" href="#join">入団案内を見る</a>
-          </div>
+      <section class="hero" id="top" aria-label="メインビジュアル">
+        <div class="hero-slides" aria-hidden="true">
+          <img class="hero-slide is-active" src="assets/8020.JPG" alt="" />
+          <img class="hero-slide" src="assets/8018.JPG" alt="" />
+          <img class="hero-slide" src="assets/8022.JPG" alt="" />
         </div>
-        <div class="hero-visual">
-          <div class="hero-card">
-            <p>Next Performance</p>
-            <strong>第120回定期演奏会</strong>
-            <span>2026.12.12 SAT</span>
+        <div class="hero-overlay"></div>
+        <div class="hero-inner">
+          <div class="hero-copy reveal" data-reveal>
+            <p class="eyebrow">Music, Tradition, Community</p>
+            <h2>響きでつなぐ、<span>立教のオーケストラ。</span></h2>
+            <p class="lead">
+              立教大学交響楽団は、学生主体で演奏活動を行うオーケストラです。
+              定期演奏会や学内外での演奏を通して、深く豊かな音楽づくりを目指しています。
+            </p>
+            <div class="hero-actions">
+              <a class="primary-link" href="#concerts">演奏会を見る</a>
+              <a class="secondary-link" href="#join">入団案内を見る</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel reveal" data-reveal>
+            <div class="hero-card">
+              <p>Next Performance</p>
+              <strong>第120回定期演奏会</strong>
+              <span>2026.12.12 SAT / すみだトリフォニーホール</span>
+            </div>
+            <div class="hero-stats">
+              <div>
+                <span>創立</span>
+                <strong>1922</strong>
+              </div>
+              <div>
+                <span>団員数</span>
+                <strong>約180名</strong>
+              </div>
+              <div>
+                <span>年間公演</span>
+                <strong>4回</strong>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="intro-band reveal" data-reveal>
+        <div class="intro-item">
+          <span>Tradition</span>
+          <p>長い歴史の中で受け継がれる音楽文化</p>
+        </div>
+        <div class="intro-item">
+          <span>Performance</span>
+          <p>学生主体でつくる本格的なオーケストラ公演</p>
+        </div>
+        <div class="intro-item">
+          <span>Community</span>
+          <p>学年や学部を超えてつながる豊かな団体活動</p>
+        </div>
+      </section>
+
+      <section class="section-block about reveal" id="about" data-reveal>
+        <div class="section-heading">
+          <p>About Us</p>
+          <h2>楽団紹介</h2>
+        </div>
+        <div class="about-layout">
+          <div class="about-text">
+            <h3>学生が築く、伝統あるサウンド</h3>
+            <p>
+              立教大学交響楽団は、長い歴史のなかで受け継がれてきた音楽文化を大切にしながら、
+              現役学生の感性で新しい演奏表現に挑戦しています。
+            </p>
+            <p>
+              弦・木管・金管・打楽器が一体となって、オーケストラならではの響きを磨き、
+              学内行事・自主公演・依頼演奏など幅広い活動を行っています。
+            </p>
+          </div>
+          <div class="about-visual">
+            <img src="assets/515.JPG" alt="ホールで練習する弦楽器メンバー" />
           </div>
         </div>
       </section>
 
-      <section class="section-block concerts" id="concerts">
+      <section class="section-block concerts reveal" id="concerts" data-reveal>
         <div class="section-heading">
           <p>Concert Information</p>
           <h2>演奏会情報</h2>
         </div>
+        <div class="feature-concert">
+          <div class="feature-concert-image">
+            <img src="assets/8022.JPG" alt="ステージ上で演奏する立教大学交響楽団" />
+          </div>
+          <div class="feature-concert-body">
+            <p class="concert-season">Featured Concert</p>
+            <h3>第120回定期演奏会</h3>
+            <dl>
+              <div>
+                <dt>日時</dt>
+                <dd>2026.12.12 SAT 17:30 開演</dd>
+              </div>
+              <div>
+                <dt>会場</dt>
+                <dd>すみだトリフォニーホール</dd>
+              </div>
+              <div>
+                <dt>曲目</dt>
+                <dd>ドヴォルザーク / 交響曲第8番 ほか</dd>
+              </div>
+            </dl>
+            <a class="dark-link" href="#contact">詳細を見る</a>
+          </div>
+        </div>
+
         <div class="concert-grid">
           <article class="concert-card">
             <p class="concert-season">SPRING</p>
@@ -71,49 +158,9 @@
                 <dd>ブラームス / 交響曲第1番 ほか</dd>
               </div>
             </dl>
-            <a href="#contact">詳細を見る</a>
           </article>
 
-          <article class="concert-card">
-            <p class="concert-season">REGULAR</p>
-            <h3>第120回定期演奏会</h3>
-            <dl>
-              <div>
-                <dt>日時</dt>
-                <dd>2026.12.12 SAT 17:30 開演</dd>
-              </div>
-              <div>
-                <dt>会場</dt>
-                <dd>すみだトリフォニーホール</dd>
-              </div>
-              <div>
-                <dt>曲目</dt>
-                <dd>ドヴォルザーク / 交響曲第8番 ほか</dd>
-              </div>
-            </dl>
-            <a href="#contact">詳細を見る</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="section-block about" id="about">
-        <div class="section-heading">
-          <p>About Us</p>
-          <h2>楽団紹介</h2>
-        </div>
-        <div class="about-layout">
-          <div class="about-text">
-            <h3>学生が築く、伝統あるサウンド</h3>
-            <p>
-              立教大学交響楽団は、長い歴史のなかで受け継がれてきた音楽文化を大切にしながら、
-              現役学生の感性で新しい演奏表現に挑戦しています。
-            </p>
-            <p>
-              弦・木管・金管・打楽器が一体となって、オーケストラならではの響きを磨き、
-              学内行事・自主公演・依頼演奏など幅広い活動を行っています。
-            </p>
-          </div>
-          <div class="stats-grid" aria-label="楽団データ">
+          <article class="concert-card stat-grid-card">
             <div class="stat-card">
               <p>創立</p>
               <strong>1922</strong>
@@ -134,11 +181,49 @@
               <strong>週3</strong>
               <span>日</span>
             </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block gallery reveal" id="gallery" data-reveal>
+        <div class="section-heading">
+          <p>Gallery</p>
+          <h2>演奏風景</h2>
+        </div>
+        <div class="gallery-copy reveal" data-reveal>
+          <p>
+            本番の緊張感から練習中の空気感まで、立教大学交響楽団のさまざまな表情をスクロールとともに楽しめるギャラリーです。
+          </p>
+        </div>
+        <div class="gallery-marquee">
+          <div class="gallery-track gallery-track-left">
+            <figure class="gallery-card tall"><img src="assets/8018.JPG" alt="演奏会本番の全景" /></figure>
+            <figure class="gallery-card wide"><img src="assets/515.JPG" alt="ホールで練習するメンバー" /></figure>
+            <figure class="gallery-card square"><img src="assets/753.JPG" alt="黒い衣装で演奏する室内楽メンバー" /></figure>
+            <figure class="gallery-card portrait"><img src="assets/814.JPG" alt="室内楽の演奏中の様子" /></figure>
+            <figure class="gallery-card wide"><img src="assets/8020.JPG" alt="ホール全景での演奏" /></figure>
+            <figure class="gallery-card tall"><img src="assets/8018.JPG" alt="演奏会本番の全景" /></figure>
+            <figure class="gallery-card wide"><img src="assets/515.JPG" alt="ホールで練習するメンバー" /></figure>
+            <figure class="gallery-card square"><img src="assets/753.JPG" alt="黒い衣装で演奏する室内楽メンバー" /></figure>
+            <figure class="gallery-card portrait"><img src="assets/814.JPG" alt="室内楽の演奏中の様子" /></figure>
+            <figure class="gallery-card wide"><img src="assets/8020.JPG" alt="ホール全景での演奏" /></figure>
+          </div>
+          <div class="gallery-track gallery-track-right">
+            <figure class="gallery-card wide"><img src="assets/771.JPG" alt="指導を受けながら練習するメンバー" /></figure>
+            <figure class="gallery-card portrait"><img src="assets/814 (1).JPG" alt="室内楽の演奏写真" /></figure>
+            <figure class="gallery-card tall"><img src="assets/8022.JPG" alt="本番ステージでの演奏" /></figure>
+            <figure class="gallery-card square"><img src="assets/753.JPG" alt="室内楽メンバーの演奏風景" /></figure>
+            <figure class="gallery-card wide"><img src="assets/515.JPG" alt="練習中のホール写真" /></figure>
+            <figure class="gallery-card wide"><img src="assets/771.JPG" alt="指導を受けながら練習するメンバー" /></figure>
+            <figure class="gallery-card portrait"><img src="assets/814 (1).JPG" alt="室内楽の演奏写真" /></figure>
+            <figure class="gallery-card tall"><img src="assets/8022.JPG" alt="本番ステージでの演奏" /></figure>
+            <figure class="gallery-card square"><img src="assets/753.JPG" alt="室内楽メンバーの演奏風景" /></figure>
+            <figure class="gallery-card wide"><img src="assets/515.JPG" alt="練習中のホール写真" /></figure>
           </div>
         </div>
       </section>
 
-      <section class="section-block join" id="join">
+      <section class="section-block join reveal" id="join" data-reveal>
         <div class="section-heading">
           <p>For New Students</p>
           <h2>新入生の方へ</h2>
@@ -159,7 +244,7 @@
         </div>
       </section>
 
-      <section class="section-block news" id="news">
+      <section class="section-block news reveal" id="news" data-reveal>
         <div class="section-heading">
           <p>News &amp; Updates</p>
           <h2>新着情報</h2>
@@ -194,7 +279,7 @@
         </div>
       </section>
 
-      <section class="section-block contact" id="contact">
+      <section class="section-block contact reveal" id="contact" data-reveal>
         <div class="section-heading">
           <p>Contact</p>
           <h2>お問い合わせ</h2>
@@ -203,18 +288,22 @@
           <p>
             演奏依頼、取材のご相談、入団に関するお問い合わせは、下記メールアドレスまでご連絡ください。
           </p>
-          <a href="mailto:info@rikkyo-orchestra.jp">info@rikkyo-orchestra.jp</a>
+          <a class="dark-link" href="mailto:info@rikkyo-orchestra.jp">info@rikkyo-orchestra.jp</a>
         </div>
       </section>
 
-      <footer class="site-footer">
+      <footer class="site-footer reveal" data-reveal>
         <p>© 2026 Rikkyo University Symphony Orchestra</p>
         <nav aria-label="フッターナビゲーション">
           <a href="#about">楽団紹介</a>
           <a href="#concerts">演奏会情報</a>
+          <a href="#gallery">ギャラリー</a>
           <a href="#join">新入生の方へ</a>
         </nav>
       </footer>
     </main>
+    <script src="https://unpkg.com/gsap@3.6.1/dist/gsap.min.js"></script>
+    <script src="scrolltrigger.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
