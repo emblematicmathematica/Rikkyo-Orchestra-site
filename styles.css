@@ -134,6 +134,37 @@ h3,
 .global-nav a.is-current {
   color: var(--rikkyo-gold);
 }
+.header-actions,
+.footer-actions {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.social-link {
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: var(--rikkyo-cream);
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  width: 42px;
+}
+
+.social-link svg {
+  height: 18px;
+  width: 18px;
+}
+
+.social-link:hover {
+  background: rgba(195, 161, 95, 0.12);
+  border-color: rgba(195, 161, 95, 0.45);
+  color: var(--rikkyo-gold);
+  transform: translateY(-1px);
+}
+
 
 .global-nav a.is-current::after {
   transform: scaleX(1);
@@ -680,6 +711,11 @@ h3,
 }
 
 @media (max-width: 960px) {
+  .header-actions,
+  .footer-actions {
+    width: 100%;
+  }
+
   .site-header,
   .section-block,
   .site-footer,
@@ -751,4 +787,77 @@ h3,
   .gallery-card.wide,
   .gallery-card.tall,
   .gallery-card.portrait { height: 200px; width: 240px; }
+}
+
+
+.detail-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.detail-list.two-column {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.detail-card {
+  background: var(--panel-dark);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  padding: 28px;
+}
+
+.detail-card h3 {
+  color: var(--rikkyo-cream);
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.detail-card p {
+  color: var(--rikkyo-muted);
+}
+
+.page-feature-concert {
+  margin-top: 0;
+}
+
+.page-news-list {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+@media (max-width: 960px) {
+  .detail-list,
+  .detail-list.two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.section-inline-link {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 auto 24px;
+  max-width: 1200px;
+}
+
+.section-inline-link a {
+  border-bottom: 1px solid rgba(195, 161, 95, 0.45);
+  color: var(--rikkyo-gold);
+  font-size: 14px;
+  padding-bottom: 4px;
+}
+
+.centered-links {
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .section-inline-link {
+    flex-direction: column;
+  }
 }
