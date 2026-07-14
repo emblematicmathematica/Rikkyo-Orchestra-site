@@ -10,8 +10,6 @@ if (heroSlides.length > 1) {
 }
 
 const revealTargets = Array.from(document.querySelectorAll('[data-reveal]'));
-const marqueeTracks = Array.from(document.querySelectorAll('.gallery-track'));
-const parallaxImages = Array.from(document.querySelectorAll('.hero-slide, .about-visual img, .feature-concert-image img, .gallery-card img'));
 
 function runFallbackReveal() {
   if ('IntersectionObserver' in window && revealTargets.length > 0) {
@@ -56,102 +54,6 @@ if (window.gsap && window.ScrollTrigger) {
         toggleActions: 'play none none none',
       },
     });
-  });
-
-  const aboutVisual = document.querySelector('.about-visual img');
-  if (aboutVisual) {
-    window.gsap.fromTo(
-      aboutVisual,
-      { scale: 1.18, yPercent: -6 },
-      {
-        scale: 1.04,
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.about',
-          scrub: 1.4,
-          start: 'top bottom',
-          end: 'bottom top',
-        },
-      },
-    );
-  }
-
-  const featureImage = document.querySelector('.feature-concert-image img');
-  if (featureImage) {
-    window.gsap.fromTo(
-      featureImage,
-      { scale: 1.16, yPercent: -10 },
-      {
-        scale: 1.02,
-        yPercent: 10,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.feature-concert',
-          scrub: 1.2,
-          start: 'top bottom',
-          end: 'bottom top',
-        },
-      },
-    );
-  }
-
-  marqueeTracks.forEach((track, index) => {
-    const direction = index % 2 === 0 ? -160 : 160;
-    window.gsap.to(track, {
-      x: direction,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.gallery',
-        scrub: 1,
-        start: 'top bottom',
-        end: 'bottom top',
-      },
-    });
-  });
-
-  document.querySelectorAll('.gallery-card').forEach((card, index) => {
-    const image = card.querySelector('img');
-    if (!image) {
-      return;
-    }
-
-    window.gsap.fromTo(
-      image,
-      {
-        scale: 1.22,
-        yPercent: index % 2 === 0 ? -12 : 12,
-      },
-      {
-        scale: 1.06,
-        yPercent: index % 2 === 0 ? 12 : -12,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: card,
-          scrub: 1.1,
-          start: 'top bottom',
-          end: 'bottom top',
-        },
-      },
-    );
-  });
-
-  heroSlides.forEach((slide, index) => {
-    window.gsap.fromTo(
-      slide,
-      { scale: 1.18, yPercent: -4 },
-      {
-        scale: 1.04,
-        yPercent: index % 2 === 0 ? 4 : -4,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hero',
-          scrub: 1,
-          start: 'top top',
-          end: 'bottom top',
-        },
-      },
-    );
   });
 
   const heroCopy = document.querySelector('.hero-copy');
