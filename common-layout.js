@@ -322,7 +322,7 @@ if (headerTarget) {
 const footerTarget = document.querySelector('[data-site-footer]');
 if (footerTarget) {
   footerTarget.outerHTML = `
-    <footer class="site-footer reveal" data-reveal>
+    <footer class="site-footer">
       <div class="footer-brand">
         <p class="footer-brand-sub">Rikkyo University Symphony Orchestra</p>
         <h2>立教大学交響楽団</h2>

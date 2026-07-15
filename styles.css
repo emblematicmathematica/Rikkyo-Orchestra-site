@@ -146,7 +146,7 @@ h3,
   gap: 0;
   grid-template-columns: 1fr auto;
   left: 0;
-  padding: 12px 40px;
+  padding: 8px 40px;
   position: sticky;
   top: 0;
   transition: padding 0.4s ease, transform 0.4s ease, opacity 0.3s ease;
@@ -162,7 +162,7 @@ h3,
 .brand-sub {
   color: rgba(242, 236, 226, 0.68);
   font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -173,7 +173,7 @@ h3,
 
 .brand-block h1 {
   color: var(--rikkyo-cream);
-  font-size: 26px;
+  font-size: 24px;
   letter-spacing: 0.04em;
 }
 
@@ -190,7 +190,7 @@ h3,
 .nav-group summary {
   color: rgba(242, 236, 226, 0.88);
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   list-style: none;
   position: relative;
@@ -251,12 +251,12 @@ h3,
 }
 
 .nav-submenu a {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .global-nav a {
   color: rgba(242, 236, 226, 0.88);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   position: relative;
 }
@@ -472,15 +472,15 @@ h3,
   border-radius: 999px;
   color: var(--rikkyo-cream);
   display: inline-flex;
-  height: 42px;
+  height: 48px;
   justify-content: center;
   transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
-  width: 42px;
+  width: 48px;
 }
 
 .social-link svg {
-  height: 18px;
-  width: 18px;
+  height: 20px;
+  width: 20px;
 }
 
 .social-link:hover {
@@ -498,7 +498,7 @@ h3,
 
 .hero {
   color: var(--rikkyo-white);
-  min-height: calc(100vh - 78px);
+  min-height: calc(100vh - 64px);
   overflow: hidden;
   position: relative;
 }
@@ -548,7 +548,12 @@ h3,
 }
 
 .hero-copy {
+  margin-top: 120px;
   max-width: 720px;
+}
+
+.hero-panel {
+  margin-top: 120px;
 }
 
 .eyebrow,
@@ -1234,10 +1239,27 @@ h3,
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1180px) {
   .header-actions,
   .footer-actions {
     width: 100%;
+  }
+
+  .hero-inner {
+    gap: 20px;
+    grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.95fr);
+  }
+
+  .hero-copy h2 {
+    font-size: clamp(34px, 4.6vw, 60px);
+  }
+
+  .hero-card {
+    padding: 16px 18px;
+  }
+
+  .hero-card strong {
+    font-size: clamp(24px, 2.5vw, 30px);
   }
 
   .site-header {
@@ -1362,7 +1384,6 @@ h3,
     padding-right: 24px;
   }
 
-  .site-header,
   .history-card {
     align-items: flex-start;
     flex-direction: column;
@@ -1379,7 +1400,6 @@ h3,
     white-space: normal;
   }
 
-  .hero-inner,
   .about-layout,
   .history-layout,
   .feature-concert,
@@ -1387,16 +1407,6 @@ h3,
   .join-panel,
   .intro-band {
     grid-template-columns: 1fr;
-  }
-
-  .hero-inner {
-    min-height: 78vh;
-    padding-top: 48px;
-  }
-
-  .hero-copy h2,
-  .subpage-hero h2 {
-    font-size: clamp(36px, 11vw, 58px);
   }
 
   .feature-concert-image,
@@ -1417,6 +1427,35 @@ h3,
   .gallery-card.wide,
   .gallery-card.tall,
   .gallery-card.portrait { height: 220px; width: 280px; }
+}
+
+@media (max-width: 760px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: 78vh;
+    padding-top: 48px;
+  }
+
+  .hero-copy h2,
+  .subpage-hero h2 {
+    font-size: clamp(36px, 11vw, 58px);
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-inner {
+    gap: 18px;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    margin-top: 120px;
+    max-width: 100%;
+  }
+
+  .hero-intro-panel {
+    display: none;
+  }
 }
 
 @media (max-width: 640px) {
@@ -1728,13 +1767,13 @@ h3,
 
 
 .hero-intro {
-  padding-top: 44px;
+  padding-top: 8px;
 }
 
 .hero-intro-inner {
   align-items: start;
   display: grid;
-  gap: 28px;
+  gap: 18px;
   grid-template-columns: minmax(0, 1.2fr) minmax(240px, 0.6fr);
   margin: 0 auto;
   max-width: 1200px;
@@ -1751,24 +1790,13 @@ h3,
 
 .hero-intro-copy {
   display: grid;
-  gap: 24px;
+  gap: 16px;
 }
 
 .hero-card-mobile {
   display: none;
 }
 
-.hero-actions-below {
-  align-items: stretch;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin: 0;
-  max-width: 100%;
-}
-
-.hero-actions-below a {
-  width: 100%;
-}
 
 @media (max-width: 960px) {
   .hero-intro {
@@ -1779,8 +1807,7 @@ h3,
     grid-template-columns: 1fr;
   }
 
-  .hero-intro-inner p,
-  .hero-actions-below {
+  .hero-intro-inner p {
     max-width: 100%;
   }
 }

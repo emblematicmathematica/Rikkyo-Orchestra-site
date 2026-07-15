@@ -38,6 +38,7 @@ const siteNavPanel = document.querySelector('.site-nav-panel');
 const navGroups = Array.from(document.querySelectorAll('.nav-group'));
 const heroSection = document.querySelector('.hero');
 const mobileNavLinks = Array.from(document.querySelectorAll('.site-nav-panel a'));
+const compactNavBreakpoint = 1180;
 let lastScrollY = window.scrollY;
 
 function closeMenu() {
@@ -56,7 +57,7 @@ function syncHeaderMode() {
     return;
   }
 
-  const isMobile = window.innerWidth <= 960;
+  const isMobile = window.innerWidth <= compactNavBreakpoint;
   const currentScrollY = window.scrollY;
   const shouldCompact = !isMobile && heroSection && currentScrollY > Math.max(heroSection.offsetHeight - 120, 120);
   siteHeader.classList.toggle('is-compact', Boolean(shouldCompact));
@@ -78,7 +79,7 @@ function syncHeaderMode() {
 
 if (menuToggle && siteHeader && siteNavPanel) {
   menuToggle.addEventListener('click', () => {
-    const isCompact = siteHeader.classList.contains('is-compact') || window.innerWidth <= 960;
+    const isCompact = siteHeader.classList.contains('is-compact') || window.innerWidth <= compactNavBreakpoint;
     if (!isCompact) {
       return;
     }
@@ -88,9 +89,9 @@ if (menuToggle && siteHeader && siteNavPanel) {
     menuToggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
   });
 
-  mobileNavLinks.forEach((link) => {
+    mobileNavLinks.forEach((link) => {
     link.addEventListener('click', () => {
-      if (window.innerWidth <= 960 || siteHeader.classList.contains('is-compact')) {
+      if (window.innerWidth <= compactNavBreakpoint || siteHeader.classList.contains('is-compact')) {
         closeMenu();
       }
     });
@@ -109,21 +110,21 @@ if (navGroups.length > 0) {
     }
 
     group.addEventListener('mouseenter', () => {
-      if (window.innerWidth <= 960 || siteHeader?.classList.contains('is-compact')) {
+      if (window.innerWidth <= compactNavBreakpoint || siteHeader?.classList.contains('is-compact')) {
         return;
       }
       group.open = true;
     });
 
     group.addEventListener('mouseleave', () => {
-      if (window.innerWidth <= 960 || siteHeader?.classList.contains('is-compact')) {
+      if (window.innerWidth <= compactNavBreakpoint || siteHeader?.classList.contains('is-compact')) {
         return;
       }
       group.open = false;
     });
 
     summary.addEventListener('click', (event) => {
-      if (window.innerWidth > 960 && !siteHeader?.classList.contains('is-compact')) {
+      if (window.innerWidth > compactNavBreakpoint && !siteHeader?.classList.contains('is-compact')) {
         event.preventDefault();
       }
     });
