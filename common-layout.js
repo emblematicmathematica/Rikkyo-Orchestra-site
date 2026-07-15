@@ -5,7 +5,7 @@ const sharedNav = {
     {
       label: '楽団紹介',
       children: [
-        { href: 'about.html', label: 'RUSOとは' },
+        { href: 'about.html', label: '立響とは' },
         { href: 'history.html', label: '歴史' },
       ],
     },
@@ -16,7 +16,14 @@ const sharedNav = {
         { href: 'concerts-archive.html', label: '過去の演奏会' },
       ],
     },
-    { href: 'join.html', label: '新入生の方へ' },
+    {
+      label: '新入生の方へ',
+      children: [
+        { href: 'join.html#requirements', label: '募集要項' },
+        { href: 'join.html#freshers-info', label: '新歓情報' },
+        { href: 'join.html#official-line', label: '新歓公式ライン' },
+      ],
+    },
     { href: 'news.html', label: '新着情報' },
     {
       label: 'お問い合わせ',
@@ -31,7 +38,7 @@ const sharedNav = {
     {
       label: '楽団紹介',
       children: [
-        { href: 'about.html', label: 'RUSOとは', key: 'about' },
+        { href: 'about.html', label: '立響とは', key: 'about' },
         { href: 'history.html', label: '歴史', key: 'history' },
       ],
     },
@@ -42,7 +49,15 @@ const sharedNav = {
         { href: 'concerts-archive.html', label: '過去の演奏会', key: 'concerts_archive' },
       ],
     },
-    { href: 'join.html', label: '新入生の方へ', key: 'join' },
+    {
+      label: '新入生の方へ',
+      key: 'join',
+      children: [
+        { href: 'join.html#requirements', label: '募集要項', key: 'join_requirements' },
+        { href: 'join.html#freshers-info', label: '新歓情報', key: 'join_freshers' },
+        { href: 'join.html#official-line', label: '新歓公式ライン', key: 'join_line' },
+      ],
+    },
     { href: 'news.html', label: '新着情報', key: 'news' },
     {
       label: 'お問い合わせ',
