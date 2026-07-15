@@ -1,0 +1,9 @@
+{
+  "name": "rikkyo-orchestra-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-content.mjs",
+    "check": "node --check scripts/build-content.mjs"
+  }
+}

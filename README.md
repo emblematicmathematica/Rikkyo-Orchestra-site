@@ -7,6 +7,22 @@
 - `index.html` - トップページ本体
 - `styles.css` - 全体スタイル
 - `assets/` - 写真、ロゴ、ファビコンなどを置くフォルダ
+- `content/news/` - 新着情報（1記事につき1つのMarkdownファイル）
+- `content/concerts.json` - 最新・過去の公演情報
+- `.pages.yml` - Pages CMSの入力画面設定
+- `scripts/build-content.mjs` - コンテンツからHTMLを生成する処理
+
+## 新着情報・公演情報の更新
+
+新着情報は `content/news/`、公演情報は `content/concerts.json` を編集します。HTMLへ反映するには、プロジェクトのフォルダで次を実行します。
+
+```bash
+npm run build
+```
+
+`index.html`、`news.html`、`concerts.html`、`concerts-archive.html` と新着情報の詳細ページが自動更新されます。`content:*:start` と `content:*:end` で囲まれたHTMLは、生成時に上書きされるため直接編集しないでください。
+
+GitHubへCMSの変更が保存された場合は、`.github/workflows/build-content.yml` が同じ生成処理を自動実行します。通常の更新担当者はHTMLを直接編集する必要がありません。
 
 ## ローカル確認方法
 

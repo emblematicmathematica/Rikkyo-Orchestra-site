@@ -1,1 +1,113 @@
-テスト
+media:
+  input: assets
+  output: assets
+
+content:
+  - name: news
+    label: 新着情報
+    type: collection
+    path: content/news
+    view:
+      fields: [title, date, category]
+      primary: title
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: タイトル
+        type: string
+        required: true
+      - name: date
+        label: 公開日
+        type: date
+        required: true
+      - name: dateLabel
+        label: 日付の表示
+        type: string
+        required: true
+      - name: category
+        label: カテゴリー
+        type: string
+        required: true
+      - name: excerpt
+        label: 一覧の説明文
+        type: text
+        required: true
+      - name: body
+        label: 本文
+        type: rich-text
+        required: true
+
+  - name: concerts
+    label: 公演情報
+    type: file
+    path: content/concerts.json
+    fields:
+      - name: upcoming
+        label: 最新の公演
+        type: object
+        fields:
+          - name: title
+            label: 公演名
+            type: string
+          - name: date
+            label: 開催日
+            type: date
+          - name: dateLabel
+            label: 日付の表示
+            type: string
+          - name: time
+            label: 開演時間
+            type: string
+          - name: venue
+            label: 会場
+            type: string
+          - name: note
+            label: 備考
+            type: text
+          - name: image
+            label: 画像
+            type: image
+          - name: imageAlt
+            label: 画像の説明
+            type: string
+          - name: ticketUrl
+            label: チケットURL
+            type: string
+          - name: ticketLabel
+            label: チケットボタンの表示
+            type: string
+      - name: archive
+        label: 過去の演奏会
+        type: object
+        list: true
+        fields:
+          - name: title
+            label: 公演名
+            type: string
+          - name: date
+            label: 開催日
+            type: date
+          - name: dateLabel
+            label: 日付の表示
+            type: string
+          - name: year
+            label: 年度
+            type: number
+          - name: venue
+            label: 会場
+            type: string
+          - name: note
+            label: 備考
+            type: text
+          - name: image
+            label: チラシ画像
+            type: image
+          - name: imageAlt
+            label: 画像の説明
+            type: string
+          - name: imageClass
+            label: 画像調整用クラス
+            type: string
