@@ -1,0 +1,34 @@
+{
+  "year": 2026,
+  "published": true,
+  "status": "preparing",
+  "headline": "2026年度 新歓情報",
+  "intro": "立教大学交響楽団では、楽器経験の有無を問わず、新しく入団を考えている方の見学や相談を歓迎しています。",
+  "requirements": [
+    {
+      "title": "見学",
+      "description": "練習日に見学を受け付けています。実際の練習の雰囲気や団員の様子をご覧いただけます。"
+    },
+    {
+      "title": "体験合奏",
+      "description": "時期によっては体験合奏も実施しています。詳細は新歓期にお知らせします。"
+    },
+    {
+      "title": "パート相談",
+      "description": "希望パートや楽器経験について、団員が個別に相談をお受けします。"
+    },
+    {
+      "title": "活動拠点",
+      "description": "池袋キャンパス地下のウィリアムズホールを主な練習拠点としています。"
+    }
+  ],
+  "events": [],
+  "scheduleMessage": "新歓の日程は、決まり次第こちらに掲載します。",
+  "flyer": "",
+  "flyerAlt": "",
+  "lineUrl": "",
+  "lineLabel": "LINEアカウント準備中",
+  "lineDescription": "新歓期のお知らせや見学案内は、公式LINEでご案内予定です。アカウント情報が決まり次第、このページに掲載いたします。",
+  "contactUrl": "contact.html",
+  "contactLabel": "お問い合わせ"
+}

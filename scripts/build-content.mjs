@@ -190,6 +190,60 @@ ${cards}
   }).join('\n\n');
 }
 
+const recruitmentStatusLabels = {
+  preparing: '準備中',
+  open: '受付中',
+  closed: '受付終了',
+};
+
+function renderRecruitment(recruitment) {
+  const requirements = recruitment.requirements.map((item) => `          <article class="detail-card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p></article>`).join('\n');
+  const events = [...recruitment.events]
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map((event) => `            <article class="recruitment-event">
+              <time datetime="${escapeHtml(event.date)}">${escapeHtml(event.dateLabel)}</time>
+              <div><h3>${escapeHtml(event.title)}</h3><p>${escapeHtml(event.description)}</p></div>
+            </article>`).join('\n');
+  const schedule = events || `            <p class="recruitment-empty">${escapeHtml(recruitment.scheduleMessage)}</p>`;
+  const flyer = recruitment.flyer
+    ? `          <figure class="recruitment-flyer"><img src="${escapeHtml(recruitment.flyer)}" alt="${escapeHtml(recruitment.flyerAlt || `${recruitment.year}年度の新歓チラシ`)}" loading="lazy" decoding="async" /></figure>`
+    : '';
+  const lineLink = recruitment.lineUrl
+    ? `<a class="dark-link" href="${escapeHtml(recruitment.lineUrl)}" target="_blank" rel="noreferrer">${escapeHtml(recruitment.lineLabel)}</a>`
+    : `<a class="dark-link disabled-link" href="#" aria-disabled="true">${escapeHtml(recruitment.lineLabel)}</a>`;
+
+  return `      <section class="section-block reveal" data-reveal id="requirements">
+        <div class="section-heading"><p>${recruitment.year} Requirements</p><h2>募集要項</h2></div>
+        <div class="detail-list two-column">
+${requirements}
+        </div>
+      </section>
+      <section class="section-block reveal" data-reveal id="freshers-info">
+        <div class="section-heading"><p>${recruitment.year} Freshers Information</p><h2>新歓情報</h2></div>
+        <div class="recruitment-layout${recruitment.flyer ? '' : ' recruitment-layout--single'}">
+          <div class="recruitment-main">
+            <div class="recruitment-heading">
+              <span class="recruitment-status recruitment-status--${escapeHtml(recruitment.status)}">${escapeHtml(recruitmentStatusLabels[recruitment.status] || recruitment.status)}</span>
+              <h3>${escapeHtml(recruitment.headline)}</h3>
+              <p>${escapeHtml(recruitment.intro)}</p>
+            </div>
+            <div class="recruitment-events">
+${schedule}
+            </div>
+            <a class="dark-link" href="${escapeHtml(recruitment.contactUrl)}">${escapeHtml(recruitment.contactLabel)}</a>
+          </div>
+${flyer}
+        </div>
+      </section>
+      <section class="section-block reveal" data-reveal id="official-line">
+        <div class="section-heading"><p>Official LINE</p><h2>新歓公式ライン</h2></div>
+        <div class="contact-box recruitment-line">
+          <p>${escapeHtml(recruitment.lineDescription)}</p>
+          ${lineLink}
+        </div>
+      </section>`;
+}
+
 async function build() {
   const newsDirectory = path.join(root, 'content/news');
   const newsFiles = (await readdir(newsDirectory)).filter((file) => file.endsWith('.md'));
@@ -221,7 +275,22 @@ async function build() {
   await replaceGenerated('concerts.html', 'upcoming-feature', renderFeatureConcert(upcoming, true));
   await replaceGenerated('concerts-archive.html', 'concert-archive', renderArchive(concerts.archive));
 
-  console.log(`Generated ${news.length} news pages and ${concerts.archive.length} archived concerts.`);
+  const recruitmentDirectory = path.join(root, 'content/recruitment');
+  const recruitmentFiles = (await readdir(recruitmentDirectory)).filter((file) => file.endsWith('.json'));
+  const recruitmentEntries = await Promise.all(recruitmentFiles.map(async (file) => {
+    const entry = JSON.parse(await readFile(path.join(recruitmentDirectory, file), 'utf8'));
+    for (const field of ['year', 'status', 'headline', 'intro', 'requirements', 'events', 'scheduleMessage', 'lineLabel', 'lineDescription', 'contactUrl', 'contactLabel']) {
+      if (entry[field] === undefined || entry[field] === null) throw new Error(`${file}: ${field}が未入力です。`);
+    }
+    return entry;
+  }));
+  const publishedRecruitment = recruitmentEntries
+    .filter((entry) => entry.published)
+    .sort((a, b) => b.year - a.year)[0];
+  if (!publishedRecruitment) throw new Error('公開中の新歓情報がありません。');
+  await replaceGenerated('join.html', 'recruitment', renderRecruitment(publishedRecruitment));
+
+  console.log(`Generated ${news.length} news pages, ${concerts.archive.length} archived concerts, and recruitment for ${publishedRecruitment.year}.`);
 }
 
 await build();

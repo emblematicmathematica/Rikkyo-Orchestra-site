@@ -296,7 +296,7 @@ function buildNavLinks(items) {
           .join('');
         const currentGroup = item.children.some((child) => child.current) ? ' is-current' : '';
         return `
-          <details class="nav-group${currentGroup}">
+          <details class="nav-group${currentGroup}" open>
             <summary>${item.label}</summary>
             <div class="nav-submenu">
               ${childLinks}

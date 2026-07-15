@@ -9,6 +9,7 @@
 - `assets/` - 写真、ロゴ、ファビコンなどを置くフォルダ
 - `content/news/` - 新着情報（1記事につき1つのMarkdownファイル）
 - `content/concerts.json` - 最新・過去の公演情報
+- `content/recruitment/` - 年度別の新歓情報（1年度につき1つのJSONファイル）
 - `.pages.yml` - Pages CMSの入力画面設定
 - `scripts/build-content.mjs` - コンテンツからHTMLを生成する処理
 
@@ -21,6 +22,8 @@ npm run build
 ```
 
 `index.html`、`news.html`、`concerts.html`、`concerts-archive.html` と新着情報の詳細ページが自動更新されます。`content:*:start` と `content:*:end` で囲まれたHTMLは、生成時に上書きされるため直接編集しないでください。
+
+新歓情報は、Pages CMSで新しい年度を作成し、内容を確認してから「公開する」をオンにします。複数年度が公開状態の場合は、年度が最も新しいものが `join.html` に表示されます。
 
 GitHubへCMSの変更が保存された場合は、`.github/workflows/build-content.yml` が同じ生成処理を自動実行します。通常の更新担当者はHTMLを直接編集する必要がありません。
 

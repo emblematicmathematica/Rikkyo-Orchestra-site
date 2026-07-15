@@ -32,7 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- index.html news.html concerts.html concerts-archive.html 'news-*.html'
+          git add -A -- index.html news.html concerts.html concerts-archive.html join.html 'news-*.html'
           git diff --cached --quiet && exit 0
           git commit -m "Build CMS content"
           git push

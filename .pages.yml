@@ -120,3 +120,121 @@ content:
           - name: imageClass
             label: 画像調整用クラス
             type: string
+
+  - name: recruitment
+    label: 新歓情報
+    type: collection
+    path: content/recruitment
+    format: json
+    filename: "{fields.year}.json"
+    view:
+      fields: [year, status, published]
+      primary: year
+      sort: [year]
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: year
+        label: 募集年度
+        type: number
+        required: true
+      - name: published
+        label: 公開する
+        type: boolean
+        default: false
+      - name: status
+        label: 募集状況
+        type: select
+        required: true
+        options:
+          values:
+            - name: preparing
+              label: 準備中
+            - name: open
+              label: 受付中
+            - name: closed
+              label: 受付終了
+      - name: headline
+        label: 見出し
+        type: string
+        required: true
+      - name: intro
+        label: 紹介文
+        type: text
+        required: true
+      - name: requirements
+        label: 募集要項
+        type: object
+        list:
+          min: 1
+          max: 8
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: 項目名
+            type: string
+            required: true
+          - name: description
+            label: 説明
+            type: text
+            required: true
+      - name: events
+        label: 新歓日程
+        type: object
+        list:
+          max: 20
+          collapsible:
+            collapsed: true
+            summary: "{dateLabel} {title}"
+        fields:
+          - name: date
+            label: 開催日
+            type: date
+            required: true
+          - name: dateLabel
+            label: 日付の表示
+            type: string
+            required: true
+          - name: title
+            label: イベント名
+            type: string
+            required: true
+          - name: description
+            label: 詳細
+            type: text
+            required: true
+      - name: scheduleMessage
+        label: 日程がない場合の案内
+        type: text
+        required: true
+      - name: flyer
+        label: 新歓チラシ
+        type: image
+        options:
+          extensions: [jpg, jpeg, png, webp]
+          rename: true
+      - name: flyerAlt
+        label: チラシ画像の説明
+        type: string
+      - name: lineUrl
+        label: 新歓公式LINE URL
+        type: string
+      - name: lineLabel
+        label: LINEボタンの表示
+        type: string
+        required: true
+      - name: lineDescription
+        label: LINEの案内文
+        type: text
+        required: true
+      - name: contactUrl
+        label: 問い合わせ先URL
+        type: string
+        required: true
+      - name: contactLabel
+        label: 問い合わせボタンの表示
+        type: string
+        required: true

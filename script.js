@@ -92,7 +92,7 @@ if (menuToggle && siteHeader && siteNavPanel) {
     menuToggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
     if (isOpen) {
       navGroups.forEach((group) => {
-        group.open = false;
+        group.open = true;
       });
     }
   });
@@ -132,16 +132,14 @@ if (navGroups.length > 0) {
     });
 
     summary.addEventListener('click', (event) => {
-      if (window.innerWidth > compactNavBreakpoint && !siteHeader?.classList.contains('is-compact')) {
+      const isCompactMenu = window.innerWidth <= compactNavBreakpoint || siteHeader?.classList.contains('is-compact');
+      if (isCompactMenu) {
         event.preventDefault();
+        group.open = true;
         return;
       }
 
-      navGroups.forEach((otherGroup) => {
-        if (otherGroup !== group) {
-          otherGroup.open = false;
-        }
-      });
+      event.preventDefault();
     });
   });
 }
