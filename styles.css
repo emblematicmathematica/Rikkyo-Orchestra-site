@@ -25,6 +25,55 @@ html {
   scroll-behavior: smooth;
 }
 
+.page-transition-overlay {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(195, 161, 95, 0.12), transparent 18%),
+    linear-gradient(135deg, rgba(12, 9, 17, 0.98) 0%, rgba(35, 18, 30, 0.96) 52%, rgba(18, 12, 24, 0.98) 100%);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transform: scale(1.02);
+  transition: opacity 0.45s ease, transform 0.6s ease;
+  z-index: 999;
+}
+
+.page-transition-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.page-transition-overlay.is-leaving {
+  opacity: 0;
+  transform: scale(0.985);
+}
+
+.page-transition-overlay__inner {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: center;
+}
+
+.page-transition-overlay__logo {
+  filter: drop-shadow(0 12px 28px rgba(0,0,0,0.28));
+  height: auto;
+  max-width: 150px;
+  width: 24vw;
+}
+
+.page-transition-overlay__label {
+  color: var(--rikkyo-cream);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: 0.14em;
+}
+
 body {
   background:
     var(--bg-pattern),
@@ -97,7 +146,7 @@ h3,
   gap: 0;
   grid-template-columns: 1fr auto;
   left: 0;
-  padding: 18px 40px;
+  padding: 12px 40px;
   position: sticky;
   top: 0;
   transition: padding 0.4s ease, transform 0.4s ease, opacity 0.3s ease;
@@ -165,10 +214,10 @@ h3,
   cursor: pointer;
   display: none;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   grid-column: 2;
   grid-row: 1;
-  height: 44px;
+  height: 56px;
   justify-content: center;
   justify-self: end;
   margin: 0;
@@ -176,16 +225,16 @@ h3,
   padding: 0;
   transform: scale(0.92);
   transition: opacity 0.25s ease, transform 0.25s ease;
-  width: 44px;
+  width: 56px;
 }
 
 .menu-toggle span {
   background: var(--rikkyo-cream);
   border-radius: 999px;
   display: block;
-  height: 2px;
+  height: 2.5px;
   transition: transform 0.25s ease, opacity 0.25s ease;
-  width: 18px;
+  width: 24px;
 }
 
 .site-nav-panel {
@@ -248,12 +297,13 @@ h3,
   transform: translateY(-8px);
   transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.25s ease;
   width: 100%;
+  z-index: 2;
 }
 
 .site-header.is-compact.menu-open .site-nav-panel {
   max-height: 80vh;
   opacity: 1;
-  padding: 18px;
+  padding: 18px 18px 16px;
   pointer-events: auto;
   transform: translateY(0);
 }
@@ -371,7 +421,7 @@ h3,
 .subpage-hero-inner {
   margin: 0 auto;
   max-width: 1280px;
-  padding: 88px 40px 56px;
+  padding: 72px 40px 56px;
   position: relative;
   z-index: 1;
 }
@@ -576,6 +626,25 @@ h3,
   color: var(--rikkyo-cream);
   font-size: clamp(30px, 4vw, 48px);
   margin-top: 8px;
+}
+
+.section-heading h2,
+.about-text h3,
+.feature-concert-body h3,
+.join-panel h3,
+.news-card h3,
+.history-card h3,
+.history-article h3,
+.history-note-card h3,
+.concert-card h3,
+.detail-card h3,
+.subpage-hero h2 {
+  background: linear-gradient(180deg, #f2e0b9 0%, #d6b16f 44%, #9f7738 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.18));
 }
 
 .about,
@@ -911,8 +980,8 @@ h3,
     display: grid;
     gap: 12px;
     grid-template-columns: 1fr auto;
-    padding-bottom: 16px;
-    padding-top: 16px;
+    padding-bottom: 10px;
+    padding-top: 10px;
   }
 
   .brand-block {
@@ -946,15 +1015,16 @@ h3,
     overflow: hidden;
     padding: 0 18px;
     pointer-events: none;
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.25s ease;
     width: 100%;
+    z-index: 2;
   }
 
   .site-header.menu-open .site-nav-panel {
     max-height: 80vh;
     opacity: 1;
-    padding: 18px;
+    padding: 18px 18px 16px;
     pointer-events: auto;
     transform: translateY(0);
   }
@@ -1009,7 +1079,7 @@ h3,
 
   .hero-inner {
     min-height: 78vh;
-    padding-top: 64px;
+    padding-top: 48px;
   }
 
   .hero-copy h2,
@@ -1038,6 +1108,19 @@ h3,
 }
 
 @media (max-width: 640px) {
+  .site-header {
+    padding-top: 8px;
+  }
+
+  .menu-toggle {
+    height: 60px;
+    width: 60px;
+  }
+
+  .menu-toggle span {
+    width: 26px;
+  }
+
   .ticket-floating-button {
     bottom: 16px;
     left: 16px;
@@ -1049,6 +1132,31 @@ h3,
   .hero-actions {
     flex-direction: column;
     width: 100%;
+  }
+
+  .hero {
+    min-height: calc(100vh - 64px);
+  }
+
+  .hero-inner {
+    align-content: end;
+    gap: 18px;
+    min-height: 82vh;
+    padding-top: 112px;
+    padding-bottom: 34px;
+  }
+
+  .hero-copy {
+    max-width: 86%;
+  }
+
+  .hero-panel {
+    max-width: 88%;
+    width: 100%;
+  }
+
+  .hero-card {
+    padding: 22px;
   }
 
   .site-footer nav {
@@ -1243,4 +1351,12 @@ h3,
   cursor: default;
   opacity: 0.8;
   pointer-events: none;
+}
+
+
+@media (max-width: 640px) {
+  .page-transition-overlay__logo {
+    max-width: 120px;
+    width: 34vw;
+  }
 }

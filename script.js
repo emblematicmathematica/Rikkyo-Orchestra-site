@@ -1,3 +1,25 @@
+const pageTransitionOverlay = document.querySelector('.page-transition-overlay');
+
+function hidePageTransitionOverlay() {
+  if (!pageTransitionOverlay) {
+    return;
+  }
+
+  requestAnimationFrame(() => {
+    pageTransitionOverlay.classList.add('is-leaving');
+    window.setTimeout(() => {
+      pageTransitionOverlay.classList.remove('is-visible');
+    }, 620);
+  });
+}
+
+if (document.body.dataset.page === 'home') {
+  window.addEventListener('pageshow', hidePageTransitionOverlay);
+  window.addEventListener('load', hidePageTransitionOverlay);
+} else if (pageTransitionOverlay) {
+  pageTransitionOverlay.remove();
+}
+
 const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
 let activeHeroIndex = 0;
 

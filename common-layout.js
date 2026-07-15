@@ -5,7 +5,6 @@ const sharedNav = {
     { href: '#about', label: '楽団紹介' },
     { href: 'history.html', label: '歴史' },
     { href: 'concerts.html', label: '演奏会情報' },
-    { href: '#gallery', label: '演奏風景' },
     { href: 'join.html', label: '新入生の方へ' },
     { href: 'news.html', label: '新着情報' },
     { href: '#contact', label: 'お問い合わせ' },
@@ -14,7 +13,6 @@ const sharedNav = {
     { href: 'index.html#about', label: '楽団紹介' },
     { href: 'history.html', label: '歴史', key: 'history' },
     { href: 'concerts.html', label: '演奏会情報', key: 'concerts' },
-    { href: 'index.html#gallery', label: '演奏風景' },
     { href: 'join.html', label: '新入生の方へ', key: 'join' },
     { href: 'news.html', label: '新着情報', key: 'news' },
     { href: 'index.html#contact', label: 'お問い合わせ' },
@@ -29,8 +27,7 @@ const pageConfigs = {
       { href: '#about', label: '楽団紹介' },
       { href: 'history.html', label: '歴史' },
       { href: 'concerts.html', label: '演奏会情報' },
-      { href: '#gallery', label: '演奏風景' },
-      { href: 'join.html', label: '新入生の方へ' },
+        { href: 'join.html', label: '新入生の方へ' },
       { href: 'news.html', label: '新着情報' },
       { href: '#contact', label: 'お問い合わせ' },
     ],
@@ -43,8 +40,7 @@ const pageConfigs = {
       { href: 'index.html#about', label: '楽団紹介' },
       { href: 'history.html', label: '歴史' },
       { href: 'concerts.html', label: '演奏会情報' },
-      { href: 'index.html#gallery', label: '演奏風景' },
-      { href: 'join.html', label: '新入生の方へ' },
+        { href: 'join.html', label: '新入生の方へ' },
       { href: 'news.html', label: '新着情報' },
       { href: 'index.html#contact', label: 'お問い合わせ' },
     ],
@@ -57,8 +53,7 @@ const pageConfigs = {
       { href: 'index.html#about', label: '楽団紹介' },
       { href: 'history.html', label: '歴史' },
       { href: 'concerts.html', label: '演奏会情報' },
-      { href: 'index.html#gallery', label: '演奏風景' },
-      { href: 'join.html', label: '新入生の方へ' },
+        { href: 'join.html', label: '新入生の方へ' },
       { href: 'news.html', label: '新着情報' },
       { href: 'index.html#contact', label: 'お問い合わせ' },
     ],
@@ -71,8 +66,7 @@ const pageConfigs = {
       { href: 'index.html#about', label: '楽団紹介' },
       { href: 'history.html', label: '歴史' },
       { href: 'concerts.html', label: '演奏会情報' },
-      { href: 'index.html#gallery', label: '演奏風景' },
-      { href: 'join.html', label: '新入生の方へ' },
+        { href: 'join.html', label: '新入生の方へ' },
       { href: 'news.html', label: '新着情報' },
       { href: 'index.html#contact', label: 'お問い合わせ' },
     ],
@@ -85,8 +79,7 @@ const pageConfigs = {
       { href: 'index.html#about', label: '楽団紹介' },
       { href: 'history.html', label: '歴史' },
       { href: 'concerts.html', label: '演奏会情報' },
-      { href: 'index.html#gallery', label: '演奏風景' },
-      { href: 'join.html', label: '新入生の方へ' },
+        { href: 'join.html', label: '新入生の方へ' },
       { href: 'news.html', label: '新着情報' },
       { href: 'index.html#contact', label: 'お問い合わせ' },
     ],
@@ -161,4 +154,16 @@ if (footerTarget) {
 
 if (!document.querySelector('.ticket-floating-button')) {
   document.body.insertAdjacentHTML('beforeend', '<a class="ticket-floating-button" href="concerts.html">チケット購入はこちら</a>');
+}
+
+
+if (!document.querySelector('.page-transition-overlay')) {
+  document.body.insertAdjacentHTML('afterbegin', `
+    <div class="page-transition-overlay is-visible" aria-hidden="true">
+      <div class="page-transition-overlay__inner">
+        <img class="page-transition-overlay__logo" src="assets/univ.png" alt="" />
+        <p class="page-transition-overlay__label">立教大学交響楽団</p>
+      </div>
+    </div>
+  `);
 }
