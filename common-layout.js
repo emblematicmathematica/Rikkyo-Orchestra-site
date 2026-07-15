@@ -121,7 +121,7 @@ if (headerTarget) {
   headerTarget.outerHTML = `
     <header class="site-header reveal" data-reveal>
       <a class="brand-block" href="${config.brandHref}">
-        <p class="brand-sub">Rikkyo University Symphony Orchestra</p>
+        <p class="brand-sub">Rikkyo University<br class="brand-sub-break" />Symphony Orchestra</p>
         <h1>立教大学交響楽団</h1>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav-panel" aria-label="メニューを開く">

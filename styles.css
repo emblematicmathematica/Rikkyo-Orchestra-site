@@ -167,6 +167,10 @@ h3,
   text-transform: uppercase;
 }
 
+.brand-sub-break {
+  display: none;
+}
+
 .brand-block h1 {
   color: var(--rikkyo-cream);
   font-size: 30px;
@@ -468,6 +472,10 @@ h3,
 }
 
 .hero-title-break {
+  display: none;
+}
+
+.hero-eyebrow-break {
   display: none;
 }
 
@@ -1116,6 +1124,14 @@ h3,
     padding-top: 8px;
   }
 
+  .brand-sub {
+    line-height: 1.55;
+  }
+
+  .brand-sub-break {
+    display: inline;
+  }
+
   .menu-toggle {
     height: 60px;
     width: 60px;
@@ -1162,16 +1178,30 @@ h3,
     padding: 22px;
   }
 
-  .hero-title-break {
-    display: inline;
-  }
-
   .hero-card-mobile {
-    display: flex;
+    display: none;
   }
 
   .hero-intro-copy {
     gap: 20px;
+  }
+
+  .hero-copy .eyebrow {
+    line-height: 1.6;
+  }
+
+  .hero-eyebrow-break {
+    display: inline;
+  }
+
+  .hero-copy h2 {
+    font-size: clamp(31px, 9vw, 42px);
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .hero-title-break {
+    display: none;
   }
 
   .site-footer nav {
@@ -1192,6 +1222,12 @@ h3,
   .gallery-card.wide,
   .gallery-card.tall,
   .gallery-card.portrait { height: 200px; width: 240px; }
+}
+
+@media (max-width: 430px) {
+  .brand-sub {
+    display: none;
+  }
 }
 
 
