@@ -351,6 +351,11 @@ h3,
   transform: translateY(-26px) scale(0.96);
 }
 
+.site-header.is-hidden.menu-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .site-header.is-compact .brand-block h1 {
   font-size: 26px;
 }
@@ -380,9 +385,13 @@ h3,
   overflow: hidden;
   padding: 0 18px;
   pointer-events: none;
+  position: absolute;
+  left: clamp(14px, 3vw, 40px);
+  right: clamp(14px, 3vw, 40px);
+  top: calc(100% + 2px);
   transform: translateY(-8px);
   transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.25s ease;
-  width: 100%;
+  width: auto;
   z-index: 2;
 }
 
@@ -1622,9 +1631,13 @@ h3,
     overflow: hidden;
     padding: 0 18px;
     pointer-events: none;
+    position: absolute;
+    left: clamp(14px, 3vw, 24px);
+    right: clamp(14px, 3vw, 24px);
+    top: calc(100% + 2px);
     transform: translateY(-10px);
     transition: max-height 0.3s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.25s ease;
-    width: 100%;
+    width: auto;
     z-index: 2;
   }
 

@@ -36,7 +36,7 @@ const menuToggle = document.querySelector('.menu-toggle');
 const siteHeader = document.querySelector('.site-header');
 const siteNavPanel = document.querySelector('.site-nav-panel');
 const navGroups = Array.from(document.querySelectorAll('.nav-group'));
-const heroSection = document.querySelector('.hero');
+const headerTriggerSection = document.querySelector('.hero, .subpage-hero');
 const mobileNavLinks = Array.from(document.querySelectorAll('.site-nav-panel a'));
 const compactNavBreakpoint = 1180;
 let lastScrollY = window.scrollY;
@@ -101,9 +101,10 @@ function syncHeaderMode() {
 
   const isMobile = window.innerWidth <= compactNavBreakpoint;
   const currentScrollY = window.scrollY;
-  const shouldCompact = !isMobile && heroSection && currentScrollY > Math.max(heroSection.offsetHeight - 120, 120);
-  siteHeader.classList.toggle('is-compact', Boolean(shouldCompact));
-  siteHeader.classList.toggle('is-scrolled', isMobile || Boolean(shouldCompact));
+  const triggerHeight = headerTriggerSection?.offsetHeight || 360;
+  const shouldCompact = !isMobile && currentScrollY > Math.max(triggerHeight - 120, 120);
+  siteHeader.classList.toggle('is-compact', shouldCompact);
+  siteHeader.classList.toggle('is-scrolled', isMobile || shouldCompact);
 
   const shouldHide = !isMobile && shouldCompact && currentScrollY > lastScrollY && currentScrollY > 240 && !siteHeader.classList.contains('menu-open');
   siteHeader.classList.toggle('is-hidden', shouldHide);
@@ -197,7 +198,7 @@ function runFallbackReveal() {
         });
       },
       {
-        threshold: 0.16,
+        threshold: 0.01,
         rootMargin: '0px 0px -10% 0px',
       },
     );
