@@ -91,6 +91,7 @@ function closeMenu() {
   menuToggle.setAttribute('aria-label', 'メニューを開く');
   navGroups.forEach((group) => {
     group.open = false;
+    group.classList.remove('is-hover-open');
   });
 }
 
@@ -153,6 +154,7 @@ if (menuToggle && siteHeader && siteNavPanel) {
 if (navGroups.length > 0) {
   navGroups.forEach((group) => {
     const summary = group.querySelector('summary');
+    let closeTimer;
     if (!summary) {
       return;
     }
@@ -161,14 +163,19 @@ if (navGroups.length > 0) {
       if (window.innerWidth <= compactNavBreakpoint || siteHeader?.classList.contains('is-compact')) {
         return;
       }
+      window.clearTimeout(closeTimer);
       group.open = true;
+      group.classList.add('is-hover-open');
     });
 
     group.addEventListener('mouseleave', () => {
       if (window.innerWidth <= compactNavBreakpoint || siteHeader?.classList.contains('is-compact')) {
         return;
       }
-      group.open = false;
+      closeTimer = window.setTimeout(() => {
+        group.open = false;
+        group.classList.remove('is-hover-open');
+      }, 420);
     });
 
     summary.addEventListener('click', (event) => {

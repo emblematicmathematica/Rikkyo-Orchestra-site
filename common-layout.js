@@ -29,6 +29,7 @@ const sharedNav = {
     {
       label: 'お問い合わせ',
       children: [
+        { href: 'contact.html', label: 'お問い合わせ' },
         { href: 'support.html', label: 'ご寄付について' },
         { href: 'tickets.html', label: 'チケットについて' },
         { href: 'performance.html', label: '依頼演奏について' },
@@ -64,6 +65,7 @@ const sharedNav = {
     {
       label: 'お問い合わせ',
       children: [
+        { href: 'contact.html', label: 'お問い合わせ', key: 'contact' },
         { href: 'support.html', label: 'ご寄付について', key: 'support' },
         { href: 'tickets.html', label: 'チケットについて', key: 'tickets' },
         { href: 'performance.html', label: '依頼演奏について', key: 'performance' },
@@ -296,6 +298,19 @@ const pageConfigs = {
       { href: 'contact.html', label: 'お問い合わせ' },
     ],
   },
+  privacy: {
+    brandHref: 'index.html',
+    nav: sharedNav.sub,
+    footer: [
+      { href: 'index.html', label: 'トップ' },
+      { href: 'about.html', label: '楽団紹介' },
+      { href: 'history.html', label: '歴史' },
+      { href: 'concerts.html', label: '演奏会情報' },
+      { href: 'join.html', label: '新入生の方へ' },
+      { href: 'news.html', label: '新着情報' },
+      { href: 'contact.html', label: 'お問い合わせ' },
+    ],
+  },
 };
 
 const config = pageConfigs[pageKey] || pageConfigs.home;
@@ -383,7 +398,7 @@ if (footerTarget) {
   footerTarget.outerHTML = `
     <footer class="site-footer">
       <div class="footer-brand">
-        <p class="footer-brand-sub">Rikkyo University Symphony Orchestra</p>
+        <p class="footer-brand-sub">Rikkyo University<br />Symphony Orchestra</p>
         <h2>立教大学交響楽団</h2>
       </div>
       <div class="footer-nav-wrap">
@@ -398,14 +413,23 @@ if (footerTarget) {
       </div>
       <div class="footer-bottom">
         <p class="footer-copy">© 2026 Rikkyo University Symphony Orchestra</p>
-        <a class="footer-admin-link" href="https://app.pagescms.org/sign-in?redirect=%2F" target="_blank" rel="noreferrer nofollow">管理者入口</a>
+        <div class="footer-utility-links">
+          <a class="footer-policy-link" href="privacy.html">プライバシーポリシー</a>
+          <a class="footer-admin-link" href="https://app.pagescms.org/sign-in?redirect=%2F" target="_blank" rel="noreferrer nofollow">管理者入口</a>
+        </div>
       </div>
     </footer>
   `;
 }
 
 if (!document.querySelector('.ticket-floating-button')) {
-  document.body.insertAdjacentHTML('beforeend', '<a class="ticket-floating-button" href="tickets.html">チケット購入はこちら</a>');
+  document.body.insertAdjacentHTML('beforeend', `
+    <a class="ticket-floating-button" href="concerts.html">
+      <span class="ticket-floating-kicker">Ticket</span>
+      <span class="ticket-floating-label">チケット購入はこちら</span>
+      <span class="ticket-floating-arrow" aria-hidden="true">→</span>
+    </a>
+  `);
 }
 
 

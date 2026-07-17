@@ -6,7 +6,7 @@
     <meta name="description" content="立教大学交響楽団の依頼演奏についての案内ページです。" />
     <title>依頼演奏について | 立教大学交響楽団</title>
     <style>html,body{background:#0b0a0d;color:#f2ece2;}</style>
-    <link rel="stylesheet" href="styles.css?v=20260717-6" />
+    <link rel="stylesheet" href="styles.css?v=20260718-2" />
   </head>
   <body class="subpage-body" data-page="performance">
     <main class="orchestra-site subpage">
@@ -28,9 +28,8 @@
         <div class="history-card">
           <div>
             <h3>まずはご相談ください</h3>
-            <p>内容を拝見のうえ、対応可否や編成、条件面について担当よりご連絡いたします。メールは rikkyo.univ.symphony@gmail.com で受け付けています。</p>
+            <p>内容を拝見のうえ、対応可否や編成、条件面について担当よりご連絡いたします。</p>
           </div>
-          <a class="dark-link" href="mailto:rikkyo.univ.symphony@gmail.com">メールで相談する</a>
         </div>
       </section>
       <section class="section-block reveal" data-reveal>
@@ -39,15 +38,25 @@
             <p>Form</p>
             <h2>依頼演奏フォーム</h2>
           </div>
-          <form class="inquiry-form" action="#" method="post">
+          <form class="inquiry-form" action="mailto:rikkyo.univ.symphony@gmail.com" method="post" enctype="text/plain">
             <div class="form-grid two-column">
               <label class="form-field">
-                <span>ご担当者名</span>
-                <input type="text" name="name" placeholder="山田 花子" />
+                <span>お名前 <em>必須</em></span>
+                <input type="text" name="name" autocomplete="name" placeholder="山田 花子" required />
               </label>
               <label class="form-field">
-                <span>メールアドレス</span>
-                <input type="email" name="email" placeholder="example@rikkyo.jp" />
+                <span>フリガナ <em>必須</em></span>
+                <input type="text" name="furigana" placeholder="ヤマダ ハナコ" required />
+              </label>
+            </div>
+            <div class="form-grid two-column">
+              <label class="form-field">
+                <span>メールアドレス <em>必須</em></span>
+                <input type="email" name="email" autocomplete="email" placeholder="example@rikkyo.jp" required />
+              </label>
+              <label class="form-field">
+                <span>お電話番号 <em>必須</em></span>
+                <input type="tel" name="tel" autocomplete="tel" placeholder="090-1234-5678" required />
               </label>
             </div>
             <div class="form-grid two-column">
@@ -74,16 +83,20 @@
               <span>ご相談内容</span>
               <textarea name="message" rows="7" placeholder="催しの概要やご希望内容をご記入ください。"></textarea>
             </label>
+            <label class="privacy-consent">
+              <input type="checkbox" name="privacy_consent" value="同意する" required />
+              <span><a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>を確認し、個人情報の取り扱いに同意します。<em>必須</em></span>
+            </label>
             <div class="form-actions">
               <button class="primary-link form-submit" type="submit">送信する</button>
-              <p class="form-note">現在は見た目のみのフォームです。送信機能はまだ接続していません。</p>
+              <p class="form-note">送信ボタンを押すと、入力内容を含んだメール作成画面が開きます。</p>
             </div>
           </form>
         </div>
       </section>
       <div data-site-footer></div>
     </main>
-    <script src="common-layout.js?v=20260717-4" defer></script>
-    <script src="script.js?v=20260717-4" defer></script>
+    <script src="common-layout.js?v=20260718-1" defer></script>
+    <script src="script.js?v=20260718-1" defer></script>
   </body>
 </html>

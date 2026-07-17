@@ -119,7 +119,7 @@ function renderNewsPage(item, olderArticle, newerArticle) {
     <meta name="description" content="${escapeHtml(item.excerpt)}" />
     <title>${escapeHtml(item.title)} | 立教大学交響楽団</title>
     <style>html,body{background:#0b0a0d;color:#f2ece2;}</style>
-    <link rel="stylesheet" href="styles.css?v=20260717-6" />
+    <link rel="stylesheet" href="styles.css?v=20260718-2" />
   </head>
   <body class="subpage-body news-detail-body" data-page="news">
     <main class="orchestra-site subpage">
@@ -143,8 +143,8 @@ function renderNewsPage(item, olderArticle, newerArticle) {
       </section>
       <div data-site-footer></div>
     </main>
-    <script src="common-layout.js?v=20260717-4" defer></script>
-    <script src="script.js?v=20260717-4" defer></script>
+    <script src="common-layout.js?v=20260718-1" defer></script>
+    <script src="script.js?v=20260718-1" defer></script>
   </body>
 </html>
 `;
