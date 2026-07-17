@@ -46,9 +46,12 @@ function parseMarkdown(source, filename) {
     if (!data[field]) throw new Error(`${filename}: ${field}が未入力です。`);
   }
 
+  const filenameWithoutExtension = path.basename(filename, '.md');
+  const articleSlug = filenameWithoutExtension.replace(/^\d{4}-\d{2}-\d{2}-/, '') || data.date;
+
   return {
     ...data,
-    slug: path.basename(filename, '.md').replace(/^\d{4}-\d{2}-\d{2}-/, ''),
+    slug: articleSlug,
     body: match[2].trim(),
   };
 }
@@ -95,7 +98,18 @@ ${indent}  <p>${escapeHtml(item.excerpt)}</p>
 ${indent}</article>`;
 }
 
-function renderNewsPage(item) {
+function renderNewsPager(olderArticle, newerArticle) {
+  const olderLink = olderArticle
+    ? `<a class="news-pager-link news-pager-link--older" href="news-${escapeHtml(olderArticle.slug)}.html" rel="prev"><span>前の記事</span><strong>${escapeHtml(olderArticle.title)}</strong></a>`
+    : '<span class="news-pager-spacer" aria-hidden="true"></span>';
+  const newerLink = newerArticle
+    ? `<a class="news-pager-link news-pager-link--newer" href="news-${escapeHtml(newerArticle.slug)}.html" rel="next"><span>次の記事</span><strong>${escapeHtml(newerArticle.title)}</strong></a>`
+    : '<span class="news-pager-spacer" aria-hidden="true"></span>';
+
+  return `<nav class="news-pager" aria-label="新着記事の前後移動">${olderLink}${newerLink}</nav>`;
+}
+
+function renderNewsPage(item, olderArticle, newerArticle) {
   return `<!DOCTYPE html>
 <!-- generated:news -->
 <html lang="ja">
@@ -124,6 +138,7 @@ function renderNewsPage(item) {
         </article>
       </section>
       <section class="section-block reveal" data-reveal>
+        ${renderNewsPager(olderArticle, newerArticle)}
         <div class="section-inline-link centered-links"><a href="news.html">新着情報一覧へ戻る</a><a href="index.html#news">トップの新着情報へ</a></div>
       </section>
       <div data-site-footer></div>
@@ -200,6 +215,17 @@ ${cards}
   }).join('\n\n');
 }
 
+function renderVideoArchive(videos) {
+  return videos.slice(0, 30).map((video) => `          <article class="video-archive-card">
+            <a class="video-archive-thumbnail" href="${escapeHtml(video.url)}" target="_blank" rel="noreferrer">
+              <img src="${escapeHtml(video.thumbnail)}" alt="${escapeHtml(video.title)}" loading="lazy" decoding="async" />
+              <span class="performance-video-play" aria-hidden="true">▶</span>
+            </a>
+            <h3>${escapeHtml(video.title)}</h3>
+            ${video.duration ? `<p>${escapeHtml(video.duration)}</p>` : ''}
+          </article>`).join('\n');
+}
+
 const recruitmentStatusLabels = {
   preparing: '準備中',
   open: '受付中',
@@ -266,13 +292,17 @@ async function build() {
   const generatedNewsFiles = new Set(news.map((item) => `news-${item.slug}.html`));
   const rootFiles = await readdir(root);
   await Promise.all(rootFiles
-    .filter((file) => /^news-.+\.html$/.test(file) && !generatedNewsFiles.has(file))
+    .filter((file) => /^news-.*\.html$/.test(file) && !generatedNewsFiles.has(file))
     .map(async (file) => {
       const filePath = path.join(root, file);
       const source = await readFile(filePath, 'utf8');
       if (source.includes('<!-- generated:news -->')) await unlink(filePath);
     }));
-  await Promise.all(news.map((item) => writeFile(path.join(root, `news-${item.slug}.html`), renderNewsPage(item))));
+  await Promise.all(news.map((item, index) => {
+    const newerArticle = news[index - 1];
+    const olderArticle = news[index + 1];
+    return writeFile(path.join(root, `news-${item.slug}.html`), renderNewsPage(item, olderArticle, newerArticle));
+  }));
 
   const concerts = JSON.parse(await readFile(path.join(root, 'content/concerts.json'), 'utf8'));
   const upcoming = concerts.upcoming;
@@ -284,6 +314,12 @@ async function build() {
   await replaceGenerated('index.html', 'upcoming-feature', renderFeatureConcert(upcoming));
   await replaceGenerated('concerts.html', 'upcoming-feature', renderFeatureConcert(upcoming, true));
   await replaceGenerated('concerts-archive.html', 'concert-archive', renderArchive(concerts.archive));
+
+  const videoArchive = JSON.parse(await readFile(path.join(root, 'content/videos.json'), 'utf8'));
+  if (!Array.isArray(videoArchive.videos) || videoArchive.videos.length === 0) {
+    throw new Error('content/videos.json: videosが空です。');
+  }
+  await replaceGenerated('video-archive.html', 'video-archive', renderVideoArchive(videoArchive.videos));
 
   const recruitmentDirectory = path.join(root, 'content/recruitment');
   const recruitmentFiles = (await readdir(recruitmentDirectory)).filter((file) => file.endsWith('.json'));
@@ -300,7 +336,7 @@ async function build() {
   if (!publishedRecruitment) throw new Error('公開中の新歓情報がありません。');
   await replaceGenerated('join.html', 'recruitment', renderRecruitment(publishedRecruitment));
 
-  console.log(`Generated ${news.length} news pages, ${concerts.archive.length} archived concerts, and recruitment for ${publishedRecruitment.year}.`);
+  console.log(`Generated ${news.length} news pages, ${concerts.archive.length} archived concerts, ${Math.min(videoArchive.videos.length, 30)} videos, and recruitment for ${publishedRecruitment.year}.`);
 }
 
 await build();

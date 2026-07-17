@@ -1,6 +1,8 @@
 name: Build CMS content
 
 on:
+  schedule:
+    - cron: "17 3 1 4 *"
   push:
     paths:
       - "content/**"
@@ -14,7 +16,7 @@ permissions:
 
 jobs:
   build:
-    if: github.actor != 'github-actions[bot]'
+    if: github.event_name != 'push' || github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -25,6 +27,10 @@ jobs:
         with:
           node-version: 22
 
+      - name: Update latest YouTube videos
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: npm run update:youtube
+
       - name: Generate HTML
         run: npm run build
 
@@ -32,7 +38,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A -- index.html news.html concerts.html concerts-archive.html join.html 'news-*.html'
+          git add -A -- content/videos.json index.html news.html concerts.html concerts-archive.html video-archive.html join.html 'news-*.html'
           git diff --cached --quiet && exit 0
           git commit -m "Build CMS content"
           git push

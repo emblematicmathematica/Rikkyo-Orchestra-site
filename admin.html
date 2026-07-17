@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="立教大学交響楽団ウェブサイトの管理者向け入口です。" />
+    <title>管理者入口 | 立教大学交響楽団</title>
+    <style>html,body{background:#0b0a0d;color:#f2ece2;}</style>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage-body" data-page="admin">
+    <main class="orchestra-site subpage">
+      <div data-site-header></div>
+
+      <section class="subpage-hero reveal" data-reveal>
+        <div class="subpage-hero-inner">
+          <p class="eyebrow">Website Administration</p>
+          <h2>管理者入口</h2>
+          <p>サイト更新や引き継ぎに必要な管理サービスへの入口をまとめています。</p>
+        </div>
+      </section>
+
+      <section class="section-block reveal" data-reveal>
+        <div class="section-heading">
+          <p>Management Links</p>
+          <h2>管理サービス</h2>
+        </div>
+        <div class="detail-list two-column">
+          <article class="detail-card admin-resource-card">
+            <h3>Pages CMS</h3>
+            <p>新着情報、公演情報、新歓情報を画面上から編集します。GitHubアカウントでのログインが必要です。</p>
+            <a class="dark-link" href="https://app.pagescms.org/" target="_blank" rel="noreferrer nofollow">CMSを開く</a>
+          </article>
+          <article class="detail-card admin-resource-card">
+            <h3>GitHub</h3>
+            <p>サイトのファイル、変更履歴、以前の状態を管理します。引き継ぎ先の担当者にもリポジトリ権限が必要です。</p>
+            <a class="dark-link" href="https://github.com/emblematicmathematica/Rikkyo-Orchestra-site" target="_blank" rel="noreferrer nofollow">リポジトリを開く</a>
+          </article>
+          <article class="detail-card admin-resource-card">
+            <h3>自動更新</h3>
+            <p>CMSのHTML生成や、YouTube最新30本の手動更新をGitHub Actionsから実行できます。</p>
+            <a class="dark-link" href="https://github.com/emblematicmathematica/Rikkyo-Orchestra-site/actions/workflows/build-content.yml" target="_blank" rel="noreferrer nofollow">自動更新画面を開く</a>
+          </article>
+          <article class="detail-card admin-resource-card">
+            <h3>レンタルサーバー</h3>
+            <p>レンタルサーバー契約後、契約会社の管理画面URLをこの欄へ追加します。ログイン情報は掲載しないでください。</p>
+            <span class="dark-link disabled-link" aria-disabled="true">契約後に設定</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block reveal" data-reveal>
+        <div class="admin-security-note">
+          <h3>大切な注意</h3>
+          <p>このページは誰でもURLを開けます。パスワード、二段階認証コード、秘密鍵、契約者情報は絶対に記載せず、パスワード管理アプリなどで安全に引き継いでください。</p>
+        </div>
+      </section>
+
+      <div data-site-footer></div>
+    </main>
+    <script src="common-layout.js?v=20260717" defer></script>
+    <script src="script.js?v=20260717" defer></script>
+  </body>
+</html>

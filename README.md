@@ -10,8 +10,10 @@
 - `content/news/` - 新着情報（1記事につき1つのMarkdownファイル）
 - `content/concerts.json` - 最新・過去の公演情報
 - `content/recruitment/` - 年度別の新歓情報（1年度につき1つのJSONファイル）
+- `content/videos.json` - 公式YouTubeの最新30本
 - `.pages.yml` - Pages CMSの入力画面設定
 - `scripts/build-content.mjs` - コンテンツからHTMLを生成する処理
+- `admin.html` - 管理サービスへの入口（ログイン情報は保存しない）
 
 ## 新着情報・公演情報の更新
 
@@ -26,6 +28,8 @@ npm run build
 新歓情報は、Pages CMSで新しい年度を作成し、内容を確認してから「公開する」をオンにします。複数年度が公開状態の場合は、年度が最も新しいものが `join.html` に表示されます。
 
 GitHubへCMSの変更が保存された場合は、`.github/workflows/build-content.yml` が同じ生成処理を自動実行します。通常の更新担当者はHTMLを直接編集する必要がありません。
+
+演奏会アーカイブの動画カードは、GitHub Actionsが毎年4月1日12時17分ごろ（日本時間）に公式YouTubeを確認し、最新30本へ自動更新します。31本目以降の古い動画はカード一覧には表示しません。必要な場合はGitHub Actionsの手動実行でも随時更新できます。ページ上部の公式チャンネル再生リストでは、引き続きすべての公開動画を選択できます。
 
 ## ローカル確認方法
 

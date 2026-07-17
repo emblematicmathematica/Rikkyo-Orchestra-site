@@ -41,6 +41,45 @@ const mobileNavLinks = Array.from(document.querySelectorAll('.site-nav-panel a')
 const compactNavBreakpoint = 1180;
 let lastScrollY = window.scrollY;
 
+const youtubeEmbeds = Array.from(document.querySelectorAll('[data-youtube-embed]'));
+const youtubePlaylists = Array.from(document.querySelectorAll('[data-youtube-playlist]'));
+
+if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+  youtubeEmbeds.forEach((container) => {
+    const videoId = container.dataset.youtubeEmbed;
+    if (!videoId) {
+      return;
+    }
+
+    const iframe = document.createElement('iframe');
+    const origin = encodeURIComponent(window.location.origin);
+    iframe.src = `https://www.youtube.com/embed/${videoId}?rel=0&origin=${origin}`;
+    iframe.title = container.dataset.youtubeTitle || 'YouTube動画';
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allowFullscreen = true;
+    container.replaceChildren(iframe);
+  });
+
+  youtubePlaylists.forEach((container) => {
+    const playlistId = container.dataset.youtubePlaylist;
+    if (!playlistId) {
+      return;
+    }
+
+    const iframe = document.createElement('iframe');
+    const origin = encodeURIComponent(window.location.origin);
+    iframe.src = `https://www.youtube.com/embed/videoseries?list=${playlistId}&origin=${origin}`;
+    iframe.title = container.dataset.youtubeTitle || 'YouTube再生リスト';
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+    iframe.allowFullscreen = true;
+    container.replaceChildren(iframe);
+  });
+}
+
 function closeMenu() {
   if (!menuToggle || !siteHeader) {
     return;

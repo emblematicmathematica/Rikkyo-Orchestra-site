@@ -7,6 +7,7 @@ const sharedNav = {
       children: [
         { href: 'about.html', label: '立響とは' },
         { href: 'history.html', label: '歴史' },
+        { href: 'video-archive.html', label: '演奏会アーカイブ' },
       ],
     },
     {
@@ -40,6 +41,7 @@ const sharedNav = {
       children: [
         { href: 'about.html', label: '立響とは', key: 'about' },
         { href: 'history.html', label: '歴史', key: 'history' },
+        { href: 'video-archive.html', label: '演奏会アーカイブ', key: 'video_archive' },
       ],
     },
     {
@@ -111,6 +113,39 @@ const pageConfigs = {
         children: item.children.map((child) => child.key === 'history' ? { ...child, current: true } : child),
       };
     }),
+    footer: [
+      { href: 'index.html', label: 'トップ' },
+      { href: 'about.html', label: '楽団紹介' },
+      { href: 'history.html', label: '歴史' },
+      { href: 'concerts.html', label: '演奏会情報' },
+      { href: 'join.html', label: '新入生の方へ' },
+      { href: 'news.html', label: '新着情報' },
+      { href: 'contact.html', label: 'お問い合わせ' },
+    ],
+  },
+  video_archive: {
+    brandHref: 'index.html',
+    nav: sharedNav.sub.map((item) => {
+      if (!item.children) return item;
+      return {
+        ...item,
+        children: item.children.map((child) => child.key === 'video_archive' ? { ...child, current: true } : child),
+      };
+    }),
+    footer: [
+      { href: 'index.html', label: 'トップ' },
+      { href: 'about.html', label: '楽団紹介' },
+      { href: 'history.html', label: '歴史' },
+      { href: 'video-archive.html', label: '演奏会アーカイブ' },
+      { href: 'concerts.html', label: '演奏会情報' },
+      { href: 'join.html', label: '新入生の方へ' },
+      { href: 'news.html', label: '新着情報' },
+      { href: 'contact.html', label: 'お問い合わせ' },
+    ],
+  },
+  admin: {
+    brandHref: 'index.html',
+    nav: sharedNav.sub,
     footer: [
       { href: 'index.html', label: 'トップ' },
       { href: 'about.html', label: '楽団紹介' },
@@ -266,6 +301,7 @@ const pageConfigs = {
 const config = pageConfigs[pageKey] || pageConfigs.home;
 const instagramUrl = 'https://www.instagram.com/rikkyo_orch?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==';
 const youtubeUrl = 'https://www.youtube.com/@RUSOChannel/featured';
+const xUrl = 'https://x.com/Rikkyo_orch';
 
 const instagramIcon = `
   <a class="social-link" href="${instagramUrl}" target="_blank" rel="noreferrer" aria-label="Instagram">
@@ -279,6 +315,14 @@ const youtubeIcon = `
   <a class="social-link" href="${youtubeUrl}" target="_blank" rel="noreferrer" aria-label="YouTube">
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M23 12.003c0-1.382-.154-2.764-.462-4.107a3.2 3.2 0 0 0-2.25-2.266C18.9 5.25 15.999 5 12 5c-3.999 0-6.9.25-8.288.63A3.2 3.2 0 0 0 1.462 7.9 18.39 18.39 0 0 0 1 12.003c0 1.382.154 2.764.462 4.107a3.2 3.2 0 0 0 2.25 2.266C5.1 18.756 8.001 19 12 19c3.999 0 6.9-.244 8.288-.624a3.2 3.2 0 0 0 2.25-2.266c.308-1.343.462-2.725.462-4.107ZM10 15.5v-7l6 3.5-6 3.5Z" fill="currentColor"/>
+    </svg>
+  </a>
+`;
+
+const xIcon = `
+  <a class="social-link" href="${xUrl}" target="_blank" rel="noreferrer" aria-label="X">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.244 2H21.5l-7.114 8.13L22.75 22h-6.55l-5.13-6.71L5.2 22H1.94l7.615-8.704L1.53 2h6.716l4.637 6.13L18.244 2Zm-1.143 17.91h1.804L7.265 3.98H5.33L17.1 19.91Z" fill="currentColor"/>
     </svg>
   </a>
 `;
@@ -328,7 +372,7 @@ if (headerTarget) {
         <nav class="global-nav" aria-label="グローバルナビゲーション">
           ${buildNavLinks(config.nav)}
         </nav>
-        <div class="header-actions">${instagramIcon}${youtubeIcon}</div>
+        <div class="header-actions">${instagramIcon}${youtubeIcon}${xIcon}</div>
       </div>
     </header>
   `;
@@ -350,9 +394,12 @@ if (footerTarget) {
       </div>
       <div class="footer-connect">
         <p class="footer-heading">Connect</p>
-        <div class="footer-actions">${instagramIcon}${youtubeIcon}</div>
+        <div class="footer-actions">${instagramIcon}${youtubeIcon}${xIcon}</div>
       </div>
-      <p class="footer-copy">© 2026 Rikkyo University Symphony Orchestra</p>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Rikkyo University Symphony Orchestra</p>
+        <a class="footer-admin-link" href="https://app.pagescms.org/sign-in?redirect=%2F" target="_blank" rel="noreferrer nofollow">管理者入口</a>
+      </div>
     </footer>
   `;
 }
