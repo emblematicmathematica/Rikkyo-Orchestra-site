@@ -1,6 +1,8 @@
 media:
   input: assets
   output: assets
+  extensions: [jpg, jpeg, apng, png, gif, svg, ico, avif, bmp, tif, tiff, webp, JPG, JPEG, APNG, PNG, GIF, SVG, ICO, AVIF, BMP, TIF, TIFF, WEBP]
+  rename: safe
 
 content:
   - name: news
@@ -43,7 +45,7 @@ content:
           multiple:
             max: 8
           unique: true
-          extensions: [jpg, jpeg, png, webp]
+          extensions: [jpg, jpeg, png, webp, JPG, JPEG, PNG, WEBP]
           rename: true
       - name: body
         label: 本文
@@ -52,65 +54,75 @@ content:
 
   - name: concerts
     label: 公演情報
-    type: file
-    path: content/concerts.json
+    type: collection
+    path: content/concerts
+    format: json
+    filename: "{fields.date}-{fields.title}.json"
+    view:
+      fields: [title, date, venue, year]
+      primary: title
+      sort: [date, year]
+      search: [title, venue, conductor, program]
+      default:
+        sort: date
+        order: desc
     fields:
-      - name: concerts
-        label: 公演一覧（開催日で自動振り分け）
-        type: object
+      - name: title
+        label: 公演名
+        type: string
+        required: true
+      - name: date
+        label: 開催日
+        type: date
+        description: この日付を基準に、最新公演と過去公演へ自動で振り分けます。
+      - name: dateLabel
+        label: 日付の表示
+        type: string
+        required: true
+      - name: time
+        label: 開場・開演時間
+        type: string
+      - name: venue
+        label: 会場
+        type: string
+        required: true
+      - name: year
+        label: 年度
+        type: number
+        required: true
+      - name: conductor
+        label: 指揮
+        type: text
+      - name: performers
+        label: 出演
+        type: string
         list: true
-        fields:
-          - name: title
-            label: 公演名
-            type: string
-          - name: date
-            label: 開催日
-            type: date
-          - name: dateLabel
-            label: 日付の表示
-            type: string
-          - name: time
-            label: 開場・開演時間
-            type: string
-          - name: venue
-            label: 会場
-            type: string
-          - name: year
-            label: 年度
-            type: number
-          - name: conductor
-            label: 指揮
-            type: text
-          - name: performers
-            label: 出演
-            type: string
-            list: true
-          - name: program
-            label: 曲目
-            type: string
-            list: true
-          - name: ticketInfo
-            label: チケット情報
-            type: string
-            list: true
-          - name: note
-            label: 備考
-            type: text
-          - name: image
-            label: チラシ・公演画像
-            type: image
-          - name: imageAlt
-            label: 画像の説明
-            type: string
-          - name: imageClass
-            label: 画像調整用クラス
-            type: string
-          - name: ticketUrl
-            label: チケットURL
-            type: string
-          - name: ticketLabel
-            label: チケットボタンの表示
-            type: string
+      - name: program
+        label: 曲目
+        type: string
+        list: true
+      - name: ticketInfo
+        label: チケット情報
+        type: string
+        list: true
+      - name: note
+        label: 備考
+        type: text
+      - name: image
+        label: チラシ・公演画像
+        type: image
+      - name: imageAlt
+        label: 画像の説明
+        type: string
+      - name: imageClass
+        label: 画像調整用クラス
+        type: string
+      - name: ticketUrl
+        label: チケットURL
+        type: string
+      - name: ticketLabel
+        label: チケットボタンの表示
+        type: string
 
   - name: recruitment
     label: 新歓情報

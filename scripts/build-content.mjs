@@ -378,8 +378,13 @@ async function build() {
     return writeFile(path.join(root, `news-${item.slug}.html`), renderNewsPage(item, olderArticle, newerArticle));
   }));
 
-  const concertData = JSON.parse(await readFile(path.join(root, 'content/concerts.json'), 'utf8'));
-  const concerts = concertData.concerts || [];
+  const concertDirectory = path.join(root, 'content/concerts');
+  const concertFiles = (await readdir(concertDirectory)).filter((file) => file.endsWith('.json'));
+  const concerts = await Promise.all(concertFiles.map(async (file) => {
+    const concert = JSON.parse(await readFile(path.join(concertDirectory, file), 'utf8'));
+    if (!concert.title || !concert.year) throw new Error(`${file}: 公演名または年度が未入力です。`);
+    return concert;
+  }));
   const today = process.env.CONCERT_REFERENCE_DATE || new Intl.DateTimeFormat('en-CA', {
     timeZone: 'Asia/Tokyo',
     year: 'numeric',
