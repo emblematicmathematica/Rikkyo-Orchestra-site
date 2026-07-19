@@ -8,6 +8,7 @@
 2. パスワード、二段階認証コード、復旧コード、サーバー接続情報は、このファイルやGitHubへ書かないでください。
 3. 履歴を強制的に消す操作は行わず、必ず変更を打ち消す方法で元に戻してください。
 4. 分からない状態で複数人が同時に操作せず、対応担当者を一人決めてください。
+5. GitHubのOrganizationは団長と広報担当など二人以上で管理し、各自のアカウントで二段階認証を有効にしてください。
 
 ## 最初の10分で行うこと
 
@@ -32,10 +33,11 @@
 
 ## 管理サービス
 
-- 公開サイト：<https://emblematicmathematica.github.io/Rikkyo-Orchestra-site/>
-- Pages CMS：<https://app.pagescms.org/>
-- GitHub：<https://github.com/emblematicmathematica/Rikkyo-Orchestra-site>
-- 自動更新：<https://github.com/emblematicmathematica/Rikkyo-Orchestra-site/actions>
+- 公開サイト：<https://rikkyo-university-symphony-orchestra.github.io/Rikkyo-Orchestra-site/>
+- Pages CMS：<https://app.pagescms.org/rikkyo-university-symphony-orchestra/rikkyo-orchestra-site/main/collection/news>
+- GitHub Organization：<https://github.com/rikkyo-university-symphony-orchestra>
+- GitHub：<https://github.com/rikkyo-university-symphony-orchestra/Rikkyo-Orchestra-site>
+- 自動更新：<https://github.com/rikkyo-university-symphony-orchestra/Rikkyo-Orchestra-site/actions>
 - GitHubの障害情報：<https://www.githubstatus.com/>
 
 URLは秘密情報ではありません。ログイン情報は、団で決めたパスワード管理方法で別に保管してください。
