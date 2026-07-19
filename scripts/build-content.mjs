@@ -169,7 +169,7 @@ function renderNewsPage(item, olderArticle, newerArticle) {
     <meta name="description" content="${escapeHtml(item.excerpt)}" />
     <title>${escapeHtml(item.title)} | 立教大学交響楽団</title>
     <style>html,body{background:#0b0a0d;color:#f2ece2;}</style>
-    <link rel="stylesheet" href="styles.css?v=20260718-17" />
+    <link rel="stylesheet" href="styles.css?v=20260720-1" />
   </head>
   <body class="subpage-body news-detail-body" data-page="news">
     <main class="orchestra-site subpage">
