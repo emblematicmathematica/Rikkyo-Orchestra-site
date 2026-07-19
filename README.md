@@ -36,6 +36,13 @@ GitHubへCMSの変更が保存された場合は、`.github/workflows/build-cont
 
 ブラウザで `index.html` を直接開くと確認できます。
 
+## 運用・不具合対応
+
+- `docs/troubleshooting.md` - 不具合発生時の確認、復旧、引き継ぎ手順
+- `maintenance.html` - 長時間の修正やサーバー障害時に使用する緊急用ページ
+
+管理サービスのパスワード、二段階認証コード、復旧コード、サーバー接続情報は、READMEやGitHubへ記載しないでください。団内限定の資料またはパスワード管理アプリで保管してください。
+
 ## GitHub に載せる手順
 
 ```bash

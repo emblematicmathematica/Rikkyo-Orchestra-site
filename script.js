@@ -1,4 +1,6 @@
 const pageTransitionOverlay = document.querySelector('.page-transition-overlay');
+const homeIntroStorageKey = 'ruso-home-intro-seen';
+let overlayDismissalScheduled = false;
 
 function hidePageTransitionOverlay() {
   if (!pageTransitionOverlay) {
@@ -13,9 +15,28 @@ function hidePageTransitionOverlay() {
   });
 }
 
+function isFirstHomeVisitInSession() {
+  try {
+    const hasSeenIntro = window.sessionStorage.getItem(homeIntroStorageKey) === 'true';
+    window.sessionStorage.setItem(homeIntroStorageKey, 'true');
+    return !hasSeenIntro;
+  } catch {
+    return true;
+  }
+}
+
+function schedulePageTransitionOverlay() {
+  if (!pageTransitionOverlay || overlayDismissalScheduled) return;
+
+  overlayDismissalScheduled = true;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const firstVisit = isFirstHomeVisitInSession();
+  const displayDuration = prefersReducedMotion ? 0 : (firstVisit ? 2000 : 250);
+  window.setTimeout(hidePageTransitionOverlay, displayDuration);
+}
+
 if (document.body.dataset.page === 'home') {
-  window.addEventListener('pageshow', hidePageTransitionOverlay);
-  window.addEventListener('load', hidePageTransitionOverlay);
+  schedulePageTransitionOverlay();
 } else if (pageTransitionOverlay) {
   pageTransitionOverlay.remove();
 }

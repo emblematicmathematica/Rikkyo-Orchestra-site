@@ -453,7 +453,7 @@ if (ticketFloatingButton && siteFooter && 'IntersectionObserver' in window) {
 }
 
 
-if (!document.querySelector('.page-transition-overlay')) {
+if (document.body.dataset.page === 'home' && !document.querySelector('.page-transition-overlay')) {
   document.body.insertAdjacentHTML('afterbegin', `
     <div class="page-transition-overlay is-visible" aria-hidden="true">
       <div class="page-transition-overlay__inner">

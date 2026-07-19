@@ -193,8 +193,8 @@ function renderNewsPage(item, olderArticle, newerArticle) {
       </section>
       <div data-site-footer></div>
     </main>
-    <script src="common-layout.js?v=20260718-5" defer></script>
-    <script src="script.js?v=20260718-3" defer></script>
+    <script src="common-layout.js?v=20260719-1" defer></script>
+    <script src="script.js?v=20260719-1" defer></script>
   </body>
 </html>
 `;
