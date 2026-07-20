@@ -8,7 +8,7 @@
     <meta name="description" content="立教大学交響楽団へのご寄付についての案内ページです。" />
     <title>ご寄付について | 立教大学交響楽団</title>
     <style>html,body{background:#0b0a0d;color:#f2ece2;}</style>
-    <link rel="stylesheet" href="styles.css?v=20260720-1" />
+    <link rel="stylesheet" href="styles.css?v=20260720-2" />
   </head>
   <body class="subpage-body" data-page="support">
     <main class="orchestra-site subpage">
@@ -40,7 +40,12 @@
             <p>Form</p>
             <h2>ご寄付に関するフォーム</h2>
           </div>
-          <form class="inquiry-form" action="mailto:rikkyo.univ.symphony@gmail.com" method="post" enctype="text/plain">
+          <form class="inquiry-form" action="/api/inquiries" method="post">
+            <input type="hidden" name="form_type" value="support" />
+            <label class="form-trap" aria-hidden="true">
+              <span>ウェブサイト</span>
+              <input type="text" name="website" tabindex="-1" autocomplete="off" />
+            </label>
             <div class="form-grid two-column">
               <label class="form-field">
                 <span>お名前 <em>必須</em></span>
@@ -70,14 +75,15 @@
             </label>
             <div class="form-actions">
               <button class="primary-link form-submit" type="submit">送信する</button>
-              <p class="form-note">送信ボタンを押すと、入力内容を含んだメール作成画面が開きます。</p>
+              <p class="form-note">入力内容は立教大学交響楽団へ直接送信されます。</p>
             </div>
+            <p class="form-status" role="status" aria-live="polite"></p>
           </form>
         </div>
       </section>
       <div data-site-footer></div>
     </main>
     <script src="common-layout.js?v=20260719-1" defer></script>
-    <script src="script.js?v=20260720-1" defer></script>
+    <script src="script.js?v=20260720-2" defer></script>
   </body>
 </html>

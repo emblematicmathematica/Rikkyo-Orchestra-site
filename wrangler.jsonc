@@ -1,8 +1,17 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "rikkyo-orchestra-site",
+  "main": "./worker.js",
   "compatibility_date": "2026-07-20",
   "assets": {
-    "directory": "./dist"
-  }
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "INQUIRIES_DB",
+      "database_name": "rikkyo-orchestra-inquiries",
+      "database_id": "cc867a47-2e6b-4f3e-aa0e-c0368601e62c"
+    }
+  ]
 }

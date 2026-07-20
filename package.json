@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node scripts/build-content.mjs",
     "build:cloudflare": "npm run build && node scripts/build-cloudflare.mjs",
-    "check": "node --check scripts/build-content.mjs && node --check scripts/build-cloudflare.mjs && node --check scripts/update-youtube.mjs",
+    "check": "node --check worker.js && node --check script.js && node --check scripts/build-content.mjs && node --check scripts/build-cloudflare.mjs && node --check scripts/update-youtube.mjs",
     "deploy:cloudflare": "npm run build:cloudflare && wrangler deploy",
     "update:youtube": "node scripts/update-youtube.mjs"
   },

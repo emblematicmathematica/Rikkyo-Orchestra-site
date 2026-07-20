@@ -93,6 +93,54 @@ if (archiveBrowser) {
 
 const youtubeEmbeds = Array.from(document.querySelectorAll('[data-youtube-embed]'));
 const youtubePlaylists = Array.from(document.querySelectorAll('[data-youtube-playlist]'));
+const inquiryForms = Array.from(document.querySelectorAll('.inquiry-form[action="/api/inquiries"]'));
+
+inquiryForms.forEach((form) => {
+  const submitButton = form.querySelector('.form-submit');
+  const statusMessage = form.querySelector('.form-status');
+  if (!submitButton || !statusMessage) {
+    return;
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) {
+      return;
+    }
+
+    const originalLabel = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = '送信中';
+    form.setAttribute('aria-busy', 'true');
+    statusMessage.className = 'form-status is-loading';
+    statusMessage.textContent = '送信しています。';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' },
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || '送信できませんでした。時間をおいてもう一度お試しください。');
+      }
+
+      form.reset();
+      statusMessage.className = 'form-status is-success';
+      statusMessage.textContent = result.message || '送信しました。お問い合わせありがとうございます。';
+    } catch (error) {
+      statusMessage.className = 'form-status is-error';
+      statusMessage.textContent = error instanceof Error
+        ? error.message
+        : '送信できませんでした。時間をおいてもう一度お試しください。';
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = originalLabel;
+      form.removeAttribute('aria-busy');
+    }
+  });
+});
 
 if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
   youtubeEmbeds.forEach((container) => {

@@ -2474,9 +2474,48 @@ h3,
   cursor: pointer;
 }
 
+.form-submit:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
 .form-note {
   color: var(--rikkyo-muted);
   font-size: 14px;
+}
+
+.form-status {
+  border-left: 3px solid currentColor;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+  padding: 8px 12px;
+}
+
+.form-status:empty {
+  display: none;
+}
+
+.form-status.is-loading {
+  color: #ddc58e;
+}
+
+.form-status.is-success {
+  color: #c6e7cf;
+}
+
+.form-status.is-error {
+  color: #ffc7c2;
+}
+
+.form-trap {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .privacy-consent {
