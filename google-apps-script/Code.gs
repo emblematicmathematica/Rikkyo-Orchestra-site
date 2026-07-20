@@ -1,7 +1,7 @@
 const RECIPIENTS = {
   support: 'rikkyo.univ.symphony@gmail.com',
   performance: 'rikkyo.univ.symphony@gmail.com',
-  tickets: 'rikkyo.orch.ticket.2025@gmail.com',
+  tickets: 'rikkyo.orch.ticket.2026@gmail.com',
 };
 
 const FORM_TITLES = {
