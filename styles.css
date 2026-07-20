@@ -1589,10 +1589,6 @@ h3,
   width: 100%;
 }
 
-.archive-concert-visual--topcrop img {
-  object-position: center;
-}
-
 .archive-concert-visual--placeholder {
   align-items: center;
   background:

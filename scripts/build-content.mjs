@@ -5,7 +5,6 @@ import { fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const isoDatePattern = /^\d{4}-\d{2}-\d{2}$/;
 const safeAssetPattern = /^assets\/(?!.*(?:^|\/)\.\.(?:\/|$))[^\0]+$/;
-const safeClassPattern = /^[a-z0-9_-]*$/;
 
 const escapeHtml = (value = '') => String(value)
   .replaceAll('&', '&amp;')
@@ -280,11 +279,11 @@ function renderFeatureConcert(concert, page = false, position = 0) {
             <dl>
               <div><dt>日時</dt><dd>${escapeHtml(concert.dateLabel)} ${escapeHtml(concert.time)}</dd></div>
               <div><dt>会場</dt><dd>${escapeHtml(concert.venue)}</dd></div>
-              ${page ? `<div><dt>指揮</dt><dd>${renderConcertLines(details.conductor)}</dd></div>
+              <div><dt>指揮</dt><dd>${renderConcertLines(details.conductor)}</dd></div>
               <div><dt>曲目</dt><dd>${renderConcertLines(details.program)}</dd></div>
-              <div><dt>チケット値段と発売日</dt><dd>${renderConcertLines(details.ticket)}
-              ${ticket}</dd></div>` : `<div><dt>内容</dt><dd>${escapeHtml(concert.note)}</dd></div>`}
-            </dl>${page ? '' : '\n            <a class="dark-link" href="concerts.html">演奏会情報ページへ</a>'}
+              <div><dt>チケット情報</dt><dd>${renderConcertLines(details.ticket)}
+              ${ticket}</dd></div>
+            </dl>
           </div>
         </div>`;
 }
@@ -298,7 +297,7 @@ function renderArchive(concerts) {
       .map((concert) => {
         const details = getConcertDetails(concert);
         const visual = concert.image
-          ? `<div class="archive-concert-visual${concert.imageClass ? ` ${escapeHtml(concert.imageClass)}` : ''}">
+          ? `<div class="archive-concert-visual">
               <img src="${escapeHtml(concert.image)}" alt="${escapeHtml(concert.imageAlt || `${concert.title}のチラシ`)}" loading="lazy" decoding="async" />
             </div>`
           : '';
@@ -456,7 +455,6 @@ async function build() {
     if (!Number.isInteger(concert.year) || concert.year < 1919 || concert.year > 2100) throw new Error(`${file}: yearは1919〜2100の整数で入力してください。`);
     assertAssetPath(concert.image, file, 'image');
     assertHttpsUrl(concert.ticketUrl, file, 'ticketUrl');
-    if (concert.imageClass && !safeClassPattern.test(concert.imageClass)) throw new Error(`${file}: imageClassに使用できない文字が含まれています。`);
     return concert;
   }));
   const today = process.env.CONCERT_REFERENCE_DATE || new Intl.DateTimeFormat('en-CA', {

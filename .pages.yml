@@ -139,7 +139,7 @@ content:
         type: string
         list: true
       - name: ticketInfo
-        label: チケット値段と発売日
+        label: チケット情報
         type: string
         list: true
         description: チケットの値段と発売日を入力してください。
@@ -159,14 +159,6 @@ content:
         type: string
         options:
           maxlength: 160
-      - name: imageClass
-        label: 画像調整用クラス
-        type: string
-        pattern:
-          regex: "^[a-z0-9_-]*$"
-          message: 半角英小文字・数字・ハイフン・アンダースコアのみ使用できます。
-        options:
-          maxlength: 80
       - name: ticketUrl
         label: チケットURL
         type: string
