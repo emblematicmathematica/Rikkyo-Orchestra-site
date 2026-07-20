@@ -73,6 +73,9 @@ function validateSubmission(input) {
     if (value.length > FIELD_LIMITS[field]) {
       return { error: '入力文字数が上限を超えています。' };
     }
+    if (field !== 'message' && /[\r\n]/.test(value)) {
+      return { error: '入力内容を確認してください。' };
+    }
     data[field] = value;
   }
 
@@ -97,7 +100,7 @@ async function parseBody(request) {
 
 async function saveInquiry(db, data) {
   const optionalValues = DATABASE_FIELDS.map((field) => data[field] || null);
-  await db.prepare(`
+  const result = await db.prepare(`
     INSERT INTO inquiries (
       form_type, name, email, support_type, event_name, desired_date,
       venue, ensemble, ticket_topic, concert_name, message
@@ -109,6 +112,46 @@ async function saveInquiry(db, data) {
     ...optionalValues,
     data.message,
   ).run();
+  return result.meta.last_row_id;
+}
+
+async function updateNotificationStatus(db, inquiryId, status, error = null) {
+  const notifiedAt = status === 'sent' ? new Date().toISOString() : null;
+  await db.prepare(`
+    UPDATE inquiries
+    SET notification_status = ?, notified_at = ?, notification_error = ?
+    WHERE id = ?
+  `).bind(status, notifiedAt, error, inquiryId).run();
+}
+
+async function sendGmailNotification(env, data) {
+  if (!env.GMAIL_WEBHOOK_URL || !env.GMAIL_WEBHOOK_SECRET) {
+    throw new Error('gmail_webhook_not_configured');
+  }
+
+  const response = await fetch(env.GMAIL_WEBHOOK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      secret: env.GMAIL_WEBHOOK_SECRET,
+      formType: data.form_type,
+      name: data.name,
+      email: data.email,
+      support_type: data.support_type,
+      event_name: data.event_name,
+      desired_date: data.desired_date,
+      venue: data.venue,
+      ensemble: data.ensemble,
+      ticket_topic: data.ticket_topic,
+      concert_name: data.concert_name,
+      message: data.message,
+    }),
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok || !result.ok) {
+    throw new Error(result.error || `gmail_webhook_${response.status}`);
+  }
 }
 
 async function handleInquiry(request, env) {
@@ -124,7 +167,27 @@ async function handleInquiry(request, env) {
     if (result.spam) return jsonResponse({ ok: true });
     if (result.error) return jsonResponse({ ok: false, message: result.error }, 400);
 
-    await saveInquiry(env.INQUIRIES_DB, result.data);
+    const inquiryId = await saveInquiry(env.INQUIRIES_DB, result.data);
+    let notificationStatus = 'sent';
+    let notificationError = null;
+    try {
+      await sendGmailNotification(env, result.data);
+    } catch (error) {
+      notificationStatus = 'failed';
+      notificationError = error instanceof Error ? error.message : 'unknown_error';
+      const errorCode = notificationError;
+      console.error('Gmail notification failed', errorCode);
+    }
+    try {
+      await updateNotificationStatus(
+        env.INQUIRIES_DB,
+        inquiryId,
+        notificationStatus,
+        notificationError?.slice(0, 200) || null,
+      );
+    } catch (statusError) {
+      console.error('Notification status update failed', statusError);
+    }
     return jsonResponse({ ok: true, message: '送信しました。お問い合わせありがとうございます。' }, 201);
   } catch (error) {
     if (error instanceof Error && error.message === 'payload_too_large') {
