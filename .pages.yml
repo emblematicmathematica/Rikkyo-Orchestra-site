@@ -173,7 +173,7 @@ content:
     type: collection
     path: content/recruitment
     format: json
-    filename: "{fields.year}.json"
+    filename: "{year}-{month}-{day}-{hour}-{minute}-{second}.json"
     view:
       fields: [year, status, published]
       primary: year
@@ -185,7 +185,6 @@ content:
       - name: year
         label: 募集年度
         type: number
-        required: true
         options:
           min: 2020
           max: 2100
@@ -196,7 +195,6 @@ content:
       - name: status
         label: 募集状況
         type: select
-        required: true
         options:
           values:
             - name: preparing
@@ -208,21 +206,17 @@ content:
       - name: headline
         label: 見出し
         type: string
-        required: true
         options:
           maxlength: 120
       - name: intro
         label: 紹介文
         type: text
-        required: true
         options:
           maxlength: 500
       - name: requirements
         label: 募集要項
         type: object
-        required: true
         list:
-          min: 1
           max: 8
           collapsible:
             collapsed: true
@@ -231,13 +225,11 @@ content:
           - name: title
             label: 項目名
             type: string
-            required: true
             options:
               maxlength: 80
           - name: description
             label: 説明
             type: text
-            required: true
             options:
               maxlength: 500
       - name: events
@@ -252,31 +244,27 @@ content:
           - name: date
             label: 開催日
             type: date
-            required: true
+            default: ""
             options:
               format: yyyy-MM-dd
           - name: dateLabel
             label: 日付の表示
             type: string
-            required: true
             options:
               maxlength: 60
           - name: title
             label: イベント名
             type: string
-            required: true
             options:
               maxlength: 100
           - name: description
             label: 詳細
             type: text
-            required: true
             options:
               maxlength: 500
       - name: scheduleMessage
         label: 日程がない場合の案内
         type: text
-        required: true
         options:
           maxlength: 300
       - name: flyer
@@ -301,27 +289,23 @@ content:
       - name: lineLabel
         label: LINEボタンの表示
         type: string
-        required: true
         options:
           maxlength: 60
       - name: lineDescription
         label: LINEの案内文
         type: text
-        required: true
         options:
           maxlength: 500
       - name: contactUrl
         label: 問い合わせ先URL
         type: string
-        required: true
         pattern:
-          regex: "^(?:https://.+|[a-z0-9_-]+\\.html(?:#[a-zA-Z0-9_-]+)?)$"
+          regex: "^(?:(?:https://.+|[a-z0-9_-]+\\.html(?:#[a-zA-Z0-9_-]+)?))?$"
           message: https:// のURL、または contact.html のようなサイト内URLを入力してください。
         options:
           maxlength: 500
       - name: contactLabel
         label: 問い合わせボタンの表示
         type: string
-        required: true
         options:
           maxlength: 60

@@ -370,11 +370,13 @@ const recruitmentStatusLabels = {
 };
 
 function renderRecruitment(recruitment) {
-  const requirements = recruitment.requirements.map((item) => `          <article class="detail-card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p></article>`).join('\n');
+  const requirements = recruitment.requirements.length > 0
+    ? recruitment.requirements.map((item) => `          <article class="detail-card"><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p></article>`).join('\n')
+    : '          <p class="recruitment-empty">募集要項は決まり次第掲載いたします。</p>';
   const events = [...recruitment.events]
-    .sort((a, b) => a.date.localeCompare(b.date))
+    .sort((a, b) => (a.date || '9999-12-31').localeCompare(b.date || '9999-12-31'))
     .map((event) => `            <article class="recruitment-event">
-              <time datetime="${escapeHtml(event.date)}">${escapeHtml(event.dateLabel)}</time>
+              <time${event.date ? ` datetime="${escapeHtml(event.date)}"` : ''}>${escapeHtml(event.dateLabel)}</time>
               <div><h3>${escapeHtml(event.title)}</h3><p>${escapeHtml(event.description)}</p></div>
             </article>`).join('\n');
   const schedule = events || `            <p class="recruitment-empty">${escapeHtml(recruitment.scheduleMessage)}</p>`;
@@ -506,26 +508,28 @@ async function build() {
 
   const recruitmentDirectory = path.join(root, 'content/recruitment');
   const recruitmentFiles = (await readdir(recruitmentDirectory)).filter((file) => file.endsWith('.json'));
+  const recruitmentCurrentYear = Number(new Intl.DateTimeFormat('en', { timeZone: 'Asia/Tokyo', year: 'numeric' }).format(new Date()));
   const recruitmentEntries = await Promise.all(recruitmentFiles.map(async (file) => {
     const entry = JSON.parse(await readFile(path.join(recruitmentDirectory, file), 'utf8'));
-    for (const field of ['year', 'status', 'headline', 'intro', 'requirements', 'scheduleMessage', 'lineLabel', 'lineDescription', 'contactUrl', 'contactLabel']) {
-      if (entry[field] === undefined || entry[field] === null || entry[field] === '') throw new Error(`${file}: ${field}が未入力です。`);
-    }
-    entry.events ??= [];
-    if (!Number.isInteger(entry.year) || entry.year < 2020 || entry.year > 2100) throw new Error(`${file}: yearは2020〜2100の整数で入力してください。`);
-    if (!Object.hasOwn(recruitmentStatusLabels, entry.status)) throw new Error(`${file}: statusが正しくありません。`);
-    if (!Array.isArray(entry.requirements) || entry.requirements.length < 1 || entry.requirements.length > 8) throw new Error(`${file}: requirementsは1〜8件で入力してください。`);
-    if (!Array.isArray(entry.events) || entry.events.length > 20) throw new Error(`${file}: eventsは20件までです。`);
-    entry.requirements.forEach((requirement, index) => {
-      assertLength(requirement.title, file, `requirements[${index}].title`, 80, 1);
-      assertLength(requirement.description, file, `requirements[${index}].description`, 500, 1);
-    });
-    entry.events.forEach((event, index) => {
-      assertIsoDate(event.date, file, `events[${index}].date`);
-      assertLength(event.dateLabel, file, `events[${index}].dateLabel`, 60, 1);
-      assertLength(event.title, file, `events[${index}].title`, 100, 1);
-      assertLength(event.description, file, `events[${index}].description`, 500, 1);
-    });
+    entry.year = Number.isInteger(entry.year) && entry.year >= 2020 && entry.year <= 2100 ? entry.year : recruitmentCurrentYear;
+    entry.status = Object.hasOwn(recruitmentStatusLabels, entry.status) ? entry.status : 'preparing';
+    entry.headline = String(entry.headline || `${entry.year}年度 新歓情報`);
+    entry.intro = String(entry.intro || '詳細は決まり次第掲載いたします。');
+    entry.scheduleMessage = String(entry.scheduleMessage || '新歓日程は決まり次第掲載いたします。');
+    entry.lineLabel = String(entry.lineLabel || '新歓公式LINE');
+    entry.lineDescription = String(entry.lineDescription || '新歓公式LINEの情報は決まり次第掲載いたします。');
+    entry.contactUrl = String(entry.contactUrl || 'contact.html');
+    entry.contactLabel = String(entry.contactLabel || 'お問い合わせ');
+    entry.requirements = (Array.isArray(entry.requirements) ? entry.requirements : []).slice(0, 8).map((requirement) => ({
+      title: String(requirement?.title || '募集要項'),
+      description: String(requirement?.description || '詳細は決まり次第掲載いたします。'),
+    }));
+    entry.events = (Array.isArray(entry.events) ? entry.events : []).slice(0, 20).map((event) => ({
+      date: isoDatePattern.test(String(event?.date || '')) ? String(event.date) : '',
+      dateLabel: String(event?.dateLabel || event?.date || '日程未定'),
+      title: String(event?.title || '新歓イベント'),
+      description: String(event?.description || '詳細は決まり次第掲載いたします。'),
+    }));
     assertAssetPath(entry.flyer, file, 'flyer');
     assertHttpsUrl(entry.lineUrl, file, 'lineUrl');
     assertLocalUrl(entry.contactUrl, file, 'contactUrl');
@@ -533,8 +537,20 @@ async function build() {
   }));
   const publishedRecruitment = recruitmentEntries
     .filter((entry) => entry.published)
-    .sort((a, b) => b.year - a.year)[0];
-  if (!publishedRecruitment) throw new Error('公開中の新歓情報がありません。');
+    .sort((a, b) => b.year - a.year)[0] || {
+      year: recruitmentCurrentYear,
+      status: 'preparing',
+      headline: `${recruitmentCurrentYear}年度 新歓情報`,
+      intro: '詳細は決まり次第掲載いたします。',
+      requirements: [],
+      events: [],
+      scheduleMessage: '新歓日程は決まり次第掲載いたします。',
+      lineUrl: '',
+      lineLabel: '新歓公式LINE',
+      lineDescription: '新歓公式LINEの情報は決まり次第掲載いたします。',
+      contactUrl: 'contact.html',
+      contactLabel: 'お問い合わせ',
+    };
   await replaceGenerated('join.html', 'recruitment', renderRecruitment(publishedRecruitment));
 
   console.log(`Generated ${news.length} news pages, ${archivedConcerts.length} archived concerts, ${upcomingConcerts.length} upcoming concert(s), ${Math.min(videoArchive.videos.length, 30)} videos, and recruitment for ${publishedRecruitment.year}.`);
